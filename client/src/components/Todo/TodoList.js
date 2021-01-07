@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export class TodoList extends Component {
   state = {
@@ -7,7 +8,6 @@ export class TodoList extends Component {
   };
 
   componentDidMount() {
-    // console.log("hello");
     axios
       .get(`http://localhost:5000/api/v1/todos`)
       .then((res) => this.setState({ todos: res.data }));
@@ -17,7 +17,7 @@ export class TodoList extends Component {
     return (
       <div>
         {this.state.todos.map((todo) => (
-          <div>{todo.name}</div>
+          <Link to={{ pathname: "/todos/" + todo.id }}>{todo.name}</Link>
         ))}
       </div>
     );

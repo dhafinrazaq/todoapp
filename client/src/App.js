@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 import TodoList from "./components/Todo/TodoList";
+import Todo from "./components/Todo/Todo";
 
 function App() {
   return (
@@ -16,6 +17,15 @@ function App() {
           render={(props) => (
             <React.Fragment>
               <TodoList></TodoList>
+            </React.Fragment>
+          )}
+        />
+        <Route
+          exact
+          path="/todos/:todoId"
+          render={(props) => (
+            <React.Fragment>
+              <Todo todoId={props.match.params.todoId}></Todo>
             </React.Fragment>
           )}
         />
