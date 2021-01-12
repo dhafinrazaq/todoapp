@@ -1,48 +1,39 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import axios from "axios";
 import qs from "qs";
+import { ACTIONS } from "../../redux";
 
-export class TodoForm extends Component {
-  state = {
-    name: "",
-  };
+export default function TodoForm() {
+  const [name, setName] = useState("");
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const newTodo = {
-      name: this.state.name,
+      name: name,
     };
 
     axios.post(`/api/v1/todos`, qs.stringify({ todo: newTodo }));
   };
 
-  render() {
-    return (
-      <div>
-        <Form onSubmit={this.onSubmit}>
-          <FormGroup>
-            <Input
-              required
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Todo name"
-              onChange={this.onChange}
-            ></Input>
-            <Button color="primary" style={{ marginTop: "2rem" }} block>
-              Add todo
-            </Button>
-          </FormGroup>
-        </Form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <FormGroup>
+          <Input
+            required
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Todo name"
+            onChange={(e) => setName(e.target.value)}
+          ></Input>
+          <Button color="primary" style={{ marginTop: "2rem" }} block>
+            Add todo
+          </Button>
+        </FormGroup>
+      </Form>
+    </div>
+  );
 }
-
-export default TodoForm;
