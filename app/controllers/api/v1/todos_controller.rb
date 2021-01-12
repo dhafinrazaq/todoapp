@@ -15,13 +15,15 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /todos
   def create
+    print "whole params: "
     print todo_params
-    @todo = Todo.new(todo_params.todo)
-    # if @todo.save
-    #   render json: @todo
-    # else
-    #   render error: { error: 'Unable to create todo'}, status: 400
-    # end
+    print "\n"
+    @todo = Todo.new(todo_params)
+    if @todo.save
+      render json: @todo
+    else
+      render error: { error: 'Unable to create todo'}, status: 400
+    end
   end
 
   # PUT /todos/:id
