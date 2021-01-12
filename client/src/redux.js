@@ -18,7 +18,7 @@ function todoReducer(state = initialState, action) {
 
       return {
         ...state,
-        todos: state.todos.push(todo),
+        todos: [...state.todos, todo],
       };
 
     case ACTIONS.LOAD_TODOS:
