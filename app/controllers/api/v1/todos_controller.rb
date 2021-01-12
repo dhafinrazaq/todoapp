@@ -15,9 +15,6 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /todos
   def create
-    print "whole params: "
-    print todo_params
-    print "\n"
     @todo = Todo.new(todo_params)
     if @todo.save
       render json: @todo
