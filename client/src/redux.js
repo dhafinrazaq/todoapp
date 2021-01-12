@@ -2,8 +2,8 @@ import { createStore } from "redux";
 
 export const ACTIONS = {
   ADD_TODO: "ADD_TODO",
-  VIEW_TODOS: "VIEW_TODOS",
-  VIEW_TODO: "VIEW_TODO",
+  LOAD_TODOS: "LOAD_TODOS",
+  LOAD_TODO: "LOAD_TODO",
 };
 
 const initialState = {
@@ -13,23 +13,24 @@ const initialState = {
 
 function todoReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTIONS.ADD_TODO: {
+    case ACTIONS.ADD_TODO:
       const { todo } = action.payload;
 
       return {
         ...state,
         todos: state.todos.push(todo),
       };
-    }
 
-    case ACTIONS.VIEW_TODOS: {
+    case ACTIONS.LOAD_TODOS:
       const { todos } = action.payload;
 
       return {
         ...state,
         todos,
       };
-    }
+
+    default:
+      return state;
   }
 }
 
