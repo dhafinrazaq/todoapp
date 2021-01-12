@@ -8,7 +8,7 @@ export class TodoList extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/api/v1/todos/${this.props.todoId}`)
+      .get(`/api/v1/todos/${this.props.todoId}`)
       .then((res) => this.setState({ todo: res.data }));
   }
 

@@ -1,4 +1,6 @@
 class Api::V1::TodosController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   # GET /todos
   def index
     @todos = Todo.all
@@ -13,12 +15,13 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /todos
   def create
-    @todo = Todo.new(todo_params)
-    if @todo.save
-      render json: @todo
-    else
-      render error: { error: 'Unable to create todo'}, status: 400
-    end
+    print todo_params
+    @todo = Todo.new(todo_params.todo)
+    # if @todo.save
+    #   render json: @todo
+    # else
+    #   render error: { error: 'Unable to create todo'}, status: 400
+    # end
   end
 
   # PUT /todos/:id
