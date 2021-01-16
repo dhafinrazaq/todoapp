@@ -1,9 +1,13 @@
 class Api::V1::TodosController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  # GET /todos
+  # GET /todos, or optionally /todos/:tag
   def index
-    @todos = Todo.all
+    if params[:tag]
+      @todos = Todo.tagged_with(params[:tag])
+    else
+      @todos = Todo.all
+    end
     render json: @todos
   end
 
@@ -48,6 +52,6 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :desc, :isCompleted, :all_tags)
+    params.require(:todo).permit(:name, :desc, :isCompleted, :tags_list, :tag, { tag_ids: [] }, :tag_ids)
   end
 end

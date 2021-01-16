@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :todos do
       end
+      # link tags to todos with the respective tag
+      get 'tags/:tag', to: 'todos#index', as: :tag
     end
   end
 end
