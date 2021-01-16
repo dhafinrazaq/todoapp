@@ -1,44 +1,41 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "reactstrap";
 import axios from "axios";
 import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../actions/todos";
 
-function useLoadTags(state) {
+export default function TagsBar() {
+  const tags = useSelector((state) => state.tags);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get(`/api/v1/tags`)
-      .then((res) => {
-        dispatch({
-          type: ACTIONS.LOAD_TAGS,
-          payload: {
-            tags: res.data,
-          },
-        });
-        console.log("success");
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-  }, []);
-
-  return state.tags;
-}
-
-export default function TagsBar() {
-  const tags = useSelector(useLoadTags);
-  useEffect(() => {
+    dispatch(actions.getTags());
     console.log("SERVER_EVENT: tag list changed");
-  }, [tags]);
+  }, [dispatch]);
 
   return (
     <div>
       <ol>
         Tags
+        <li>
+          <p
+            onClick={() => {
+              dispatch(actions.getTodos());
+            }}
+          >
+            All
+          </p>
+        </li>
         {tags.map((tag) => (
           <li>
-            <p>{tag.name}</p>
+            <p
+              onClick={() => {
+                dispatch(actions.getTodoWithTag(tag));
+              }}
+            >
+              {tag.name}
+            </p>
           </li>
         ))}
       </ol>

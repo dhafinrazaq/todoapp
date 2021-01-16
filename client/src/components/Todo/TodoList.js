@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
-import axios from "axios";
 import TodoForm from "./TodoForm";
 import { useSelector, useDispatch } from "react-redux";
-import { ACTIONS } from "../../redux";
-import qs from "qs";
 import "./style.css";
 import TagsBar from "./TagsBar";
 import * as actions from "../../actions/todos";
