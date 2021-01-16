@@ -31,7 +31,7 @@ function useLoadTodos(state) {
   return state.todos;
 }
 
-function useMarkAsCompleted() {
+function useMarkDispatcher() {
   const dispatch = useDispatch();
 
   return (updatedTodo) => {
@@ -56,26 +56,18 @@ function useMarkAsCompleted() {
   };
 }
 
-const getUpdatedTodo = (todo) => {
+const updateTodo = (todo) => {
   const updatedTodo = {
     ...todo,
-    isCompleted: true,
+    isCompleted: !todo.isCompleted,
   };
 
-  console.log(updatedTodo);
   return updatedTodo;
 };
 
-function getStyle(isCompleted) {
-  if (isCompleted) {
-    console.log("have line through");
-    return { textDecoration: "line-through" };
-  }
-}
-
 export default function TodoList() {
   const todos = useSelector(useLoadTodos);
-  const markAsCompleted = useMarkAsCompleted();
+  const markDispatcher = useMarkDispatcher();
 
   useEffect(() => {
     console.log("SERVER_EVENT: todo list changed");
@@ -93,8 +85,8 @@ export default function TodoList() {
               size="sm"
               onClick={(e) => {
                 e.preventDefault();
-                const updatedTodo = getUpdatedTodo(todo);
-                markAsCompleted(updatedTodo);
+                const updatedTodo = updateTodo(todo);
+                markDispatcher(updatedTodo);
               }}
             ></Button>
             <span className={todo.isCompleted ? "completed-todo" : ""}>
