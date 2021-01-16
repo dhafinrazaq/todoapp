@@ -1,4 +1,5 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 
 export const ACTIONS = {
   ADD_TODO: "ADD_TODO",
@@ -60,9 +61,14 @@ function todoReducer(state = initialState, action) {
   }
 }
 
+const middleware = [thunk];
+
 const enableReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__?.();
 
 export function createReduxStore() {
-  const store = createStore(todoReducer, enableReduxDevTools);
+  const store = createStore(
+    todoReducer,
+    compose(applyMiddleware(...middleware), enableReduxDevTools)
+  );
   return store;
 }
