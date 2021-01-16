@@ -7,32 +7,7 @@ import { ACTIONS } from "../../redux";
 import qs from "qs";
 import "./style.css";
 import TagsBar from "./TagsBar";
-import { getTodos } from "../../actions/todos";
-
-function useMarkDispatcher() {
-  const dispatch = useDispatch();
-
-  return (updatedTodo) => {
-    console.log(updatedTodo);
-    axios
-      .put(
-        `/api/v1/todos/${updatedTodo.id}`,
-        qs.stringify({ todo: updatedTodo })
-      )
-      .then((res) => {
-        dispatch({
-          type: ACTIONS.UPDATE_TODO,
-          payload: {
-            todo: res.data,
-          },
-        });
-        console.log("success");
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-  };
-}
+import * as actions from "../../actions/todos";
 
 const updateTodo = (todo) => {
   const updatedTodo = {
@@ -46,11 +21,16 @@ const updateTodo = (todo) => {
 export default function TodoList() {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
-  const markDispatcher = useMarkDispatcher();
+
+  const handleCheck = (e, todo) => {
+    e.preventDefault();
+    const updatedTodo = updateTodo(todo);
+    dispatch(actions.markTodo(updatedTodo));
+  };
 
   useEffect(() => {
     console.log("SERVER_EVENT: todo list changed");
-    dispatch(getTodos());
+    dispatch(actions.getTodos());
   }, [dispatch]);
 
   return (
@@ -64,11 +44,7 @@ export default function TodoList() {
             <Button
               color="primary"
               size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                const updatedTodo = updateTodo(todo);
-                markDispatcher(updatedTodo);
-              }}
+              onClick={(e) => handleCheck(e, todo)}
             ></Button>
             <span className={todo.isCompleted ? "completed-todo" : ""}>
               {" "}
