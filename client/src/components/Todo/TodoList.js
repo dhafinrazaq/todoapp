@@ -78,6 +78,7 @@ export default function TodoList() {
     <div>
       <TodoForm></TodoForm>
       <ol>
+        Uncategorized
         {todos.map((todo) => (
           <li>
             <Button

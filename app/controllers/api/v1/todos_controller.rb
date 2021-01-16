@@ -48,6 +48,6 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :desc, :isCompleted)
+    params.require(:todo).permit(:name, :desc, :isCompleted, :all_tags)
   end
 end
