@@ -7,6 +7,7 @@ export const ACTIONS = {
   LOAD_TODOS: "LOAD_TODOS",
   LOAD_TODO: "LOAD_TODO",
   LOAD_TAGS: "LOAD_TAGS",
+  DELETE_TODO: "DELETE_TODO",
 };
 
 const initialState = {
@@ -53,6 +54,15 @@ function todoReducer(state = initialState, action) {
       return {
         ...state,
         tags,
+      };
+    }
+
+    case ACTIONS.DELETE_TODO: {
+      const { todo } = action.payload;
+
+      return {
+        ...state,
+        todos: [...state.todos.filter((prevTodo) => prevTodo.id !== todo.id)],
       };
     }
 

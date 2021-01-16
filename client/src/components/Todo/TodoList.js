@@ -25,6 +25,11 @@ export default function TodoList() {
     dispatch(actions.markTodo(updatedTodo));
   };
 
+  const handleDelete = (e, todo) => {
+    e.preventDefault();
+    dispatch(actions.deleteTodo(todo));
+  };
+
   useEffect(() => {
     console.log("SERVER_EVENT: todo list changed");
     dispatch(actions.getTodos());
@@ -42,6 +47,11 @@ export default function TodoList() {
               color="primary"
               size="sm"
               onClick={(e) => handleCheck(e, todo)}
+            ></Button>
+            <Button
+              color="danger"
+              size="sm"
+              onClick={(e) => handleDelete(e, todo)}
             ></Button>
             <span className={todo.isCompleted ? "completed-todo" : ""}>
               {" "}

@@ -34,6 +34,23 @@ export const markTodo = (updatedTodo) => (dispatch) => {
     });
 };
 
+export const deleteTodo = (todo) => (dispatch) => {
+  axios
+    .delete(`/api/v1/todos/${todo.id}`)
+    .then((res) => {
+      dispatch({
+        type: ACTIONS.DELETE_TODO,
+        payload: {
+          todo: res.data,
+        },
+      });
+      console.log("success");
+    })
+    .catch((error) => {
+      console.log("error");
+    });
+};
+
 export const getTags = () => (dispatch) => {
   axios
     .get(`/api/v1/tags`)

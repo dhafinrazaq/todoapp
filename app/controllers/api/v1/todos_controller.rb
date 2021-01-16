@@ -49,7 +49,7 @@ class Api::V1::TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     if @todo
       @todo.destroy
-      render json: { message: 'Todo successfully deleted' }, status: 200
+      render json: @todo
     else
       render json: { error: 'Unable to delete todo'}, status: 400
     end
