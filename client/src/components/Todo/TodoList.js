@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ACTIONS } from "../../redux";
 import qs from "qs";
 import "./style.css";
+import SearchBar from "./SearchBar";
 
 function useLoadTodos(state) {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ export default function TodoList() {
 
   return (
     <div>
+      <SearchBar></SearchBar>
       <TodoForm></TodoForm>
       <ol>
         Uncategorized
