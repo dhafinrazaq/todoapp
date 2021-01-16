@@ -32,6 +32,7 @@ export default function TodoForm() {
 
     const newTodo = {
       name: name,
+      isCompleted: false,
     };
 
     addTodo(newTodo);

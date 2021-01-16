@@ -2,6 +2,7 @@ import { createStore } from "redux";
 
 export const ACTIONS = {
   ADD_TODO: "ADD_TODO",
+  UPDATE_TODO: "UPDATE_TODO",
   LOAD_TODOS: "LOAD_TODOS",
   LOAD_TODO: "LOAD_TODO",
 };
@@ -13,21 +14,35 @@ const initialState = {
 
 function todoReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTIONS.ADD_TODO:
+    case ACTIONS.ADD_TODO: {
       const { todo } = action.payload;
 
       return {
         ...state,
         todos: [...state.todos, todo],
       };
+    }
 
-    case ACTIONS.LOAD_TODOS:
+    case ACTIONS.UPDATE_TODO: {
+      const { todo } = action.payload;
+
+      return {
+        ...state,
+        todos: [
+          ...state.todos.filter((prevTodo) => prevTodo.id !== todo.id),
+          todo,
+        ],
+      };
+    }
+
+    case ACTIONS.LOAD_TODOS: {
       const { todos } = action.payload;
 
       return {
         ...state,
         todos,
       };
+    }
 
     default:
       return state;

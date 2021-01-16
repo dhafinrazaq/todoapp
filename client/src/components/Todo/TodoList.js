@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "reactstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import TodoForm from "./TodoForm";
 import { useSelector, useDispatch } from "react-redux";
 import { ACTIONS } from "../../redux";
+import qs from "qs";
+import "./style.css";
 
 function useLoadTodos(state) {
   const dispatch = useDispatch();
@@ -28,8 +31,51 @@ function useLoadTodos(state) {
   return state.todos;
 }
 
+function useMarkAsCompleted() {
+  const dispatch = useDispatch();
+
+  return (updatedTodo) => {
+    console.log(updatedTodo);
+    axios
+      .put(
+        `/api/v1/todos/${updatedTodo.id}`,
+        qs.stringify({ todo: updatedTodo })
+      )
+      .then((res) => {
+        dispatch({
+          type: ACTIONS.UPDATE_TODO,
+          payload: {
+            todo: res.data,
+          },
+        });
+        console.log("success");
+      })
+      .catch((error) => {
+        console.log("error");
+      });
+  };
+}
+
+const getUpdatedTodo = (todo) => {
+  const updatedTodo = {
+    ...todo,
+    isCompleted: true,
+  };
+
+  console.log(updatedTodo);
+  return updatedTodo;
+};
+
+function getStyle(isCompleted) {
+  if (isCompleted) {
+    console.log("have line through");
+    return { textDecoration: "line-through" };
+  }
+}
+
 export default function TodoList() {
   const todos = useSelector(useLoadTodos);
+  const markAsCompleted = useMarkAsCompleted();
 
   useEffect(() => {
     console.log("SERVER_EVENT: todo list changed");
@@ -42,7 +88,19 @@ export default function TodoList() {
       <ol>
         {todos.map((todo) => (
           <li>
-            <Link to={{ pathname: "/todos/" + todo.id }}>{todo.name}</Link>
+            <Button
+              color="primary"
+              size="sm"
+              onClick={(e) => {
+                e.preventDefault();
+                const updatedTodo = getUpdatedTodo(todo);
+                markAsCompleted(updatedTodo);
+              }}
+            ></Button>
+            <span className={todo.isCompleted ? "completed-todo" : ""}>
+              {" "}
+              {todo.name}
+            </span>
           </li>
         ))}
       </ol>

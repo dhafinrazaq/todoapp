@@ -28,7 +28,7 @@ class Api::V1::TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     if @todo
       @todo.update(todo_params)
-      render json: { message: 'Todo successfully updated' }, status: 200
+      render json: @todo
     else
       render json: { error: 'Unable to update todo'}, status: 400
     end
@@ -48,6 +48,6 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :desc)
+    params.require(:todo).permit(:name, :desc, :isCompleted)
   end
 end
