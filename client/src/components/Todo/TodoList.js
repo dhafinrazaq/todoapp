@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import TodoForm from "./TodoForm";
 import { useSelector, useDispatch } from "react-redux";
 import { ACTIONS } from "../../redux";
 import qs from "qs";
 import "./style.css";
-import SearchBar from "./SearchBar";
+import TagsBar from "./TagsBar";
 
 function useLoadTodos(state) {
   const dispatch = useDispatch();
@@ -77,7 +76,7 @@ export default function TodoList() {
 
   return (
     <div>
-      <SearchBar></SearchBar>
+      <TagsBar></TagsBar>
       <TodoForm></TodoForm>
       <ol>
         Uncategorized

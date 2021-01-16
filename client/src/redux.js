@@ -5,11 +5,13 @@ export const ACTIONS = {
   UPDATE_TODO: "UPDATE_TODO",
   LOAD_TODOS: "LOAD_TODOS",
   LOAD_TODO: "LOAD_TODO",
+  LOAD_TAGS: "LOAD_TAGS",
 };
 
 const initialState = {
   todos: [],
   todo: {},
+  tags: [],
 };
 
 function todoReducer(state = initialState, action) {
@@ -41,6 +43,15 @@ function todoReducer(state = initialState, action) {
       return {
         ...state,
         todos,
+      };
+    }
+
+    case ACTIONS.LOAD_TAGS: {
+      const { tags } = action.payload;
+
+      return {
+        ...state,
+        tags,
       };
     }
 
