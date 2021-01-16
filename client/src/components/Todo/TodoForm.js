@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function TodoForm() {
   const [name, setName] = useState("");
+  const [tagList, setTagList] = useState("");
   const dispatch = useDispatch();
 
   const addTodo = (newTodo) => {
@@ -33,6 +34,7 @@ export default function TodoForm() {
     const newTodo = {
       name: name,
       isCompleted: false,
+      tag_list: tagList,
     };
 
     addTodo(newTodo);
@@ -50,10 +52,20 @@ export default function TodoForm() {
             placeholder="Todo name"
             onChange={(e) => setName(e.target.value)}
           ></Input>
-          <Button color="primary" style={{ marginTop: "2rem" }} block>
-            Add todo
-          </Button>
         </FormGroup>
+        <FormGroup>
+          <Input
+            required
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Tags list"
+            onChange={(e) => setTagList(e.target.value)}
+          ></Input>
+        </FormGroup>
+        <Button color="primary" style={{ marginTop: "2rem" }} block>
+          Add todo
+        </Button>
       </Form>
     </div>
   );
