@@ -20,15 +20,6 @@ function App() {
             </React.Fragment>
           )}
         />
-        <Route
-          exact
-          path="/todos/:todoId"
-          render={(props) => (
-            <React.Fragment>
-              <Todo todoId={props.match.params.todoId}></Todo>
-            </React.Fragment>
-          )}
-        />
       </Container>
     </Router>
   );

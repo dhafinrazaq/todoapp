@@ -14,6 +14,7 @@ const initialState = {
   todos: [],
   todo: {},
   tags: [],
+  tag: "All",
 };
 
 function todoReducer(state = initialState, action) {
@@ -40,10 +41,11 @@ function todoReducer(state = initialState, action) {
     }
 
     case ACTIONS.LOAD_TODOS: {
-      const { todos } = action.payload;
+      const { todos, tag } = action.payload;
 
       return {
         ...state,
+        tag,
         todos,
       };
     }

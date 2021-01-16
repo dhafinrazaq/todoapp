@@ -11,6 +11,7 @@ export const getTodos = () => (dispatch) => {
         type: TYPES.LOAD_TODOS,
         payload: {
           todos: res.data,
+          tag: "All",
         },
       });
     })
@@ -76,6 +77,7 @@ export const getTodoWithTag = (tag) => (dispatch) => {
         type: ACTIONS.LOAD_TODOS,
         payload: {
           todos: res.data,
+          tag: tag.name,
         },
       });
       console.log("success");
