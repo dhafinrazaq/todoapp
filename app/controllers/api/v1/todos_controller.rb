@@ -67,14 +67,7 @@ class Api::V1::TodosController < ApplicationController
   end
 
   def set_user
-    print "below\n"
-    print request.headers["Authorization"]
-    print "\n"
-    print "above\n"
     @user = session_user
-    print @user.username
-    print "\n"
-    print "above is user\n"
   end
 
   private

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import {IAction, ITodo, IState} from "./types/interfaces"
+import { IAction, ITodo, IState } from "./types/interfaces";
 
 export const ACTIONS = {
   ADD_TODO: "ADD_TODO",
@@ -11,7 +11,7 @@ export const ACTIONS = {
   DELETE_TODO: "DELETE_TODO",
 };
 
-const initialState : IState = {
+const initialState: IState = {
   todos: [],
   todo: undefined,
   tags: [],
@@ -30,7 +30,7 @@ function todoReducer(state = initialState, action: IAction) {
     }
 
     case ACTIONS.UPDATE_TODO: {
-      const { todo }: {todo: ITodo} = action.payload;
+      const { todo }: { todo: ITodo } = action.payload;
 
       return {
         ...state,

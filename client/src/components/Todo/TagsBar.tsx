@@ -5,12 +5,13 @@ import {ITodo, ITag, IState} from "../../types/interfaces"
 
 export default function TagsBar() {
   const tags: ITag[] = useSelector((state: IState) => state.tags);
+  const todos: ITodo[] = useSelector((state: IState) => state.todos);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(actions.getTags());
     console.log("SERVER_EVENT: tag list changed");
-  }, [dispatch]);
+  }, [dispatch, todos]);
 
   return (
     <div>
