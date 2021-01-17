@@ -5,24 +5,13 @@ import qs from "qs";
 import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
 import {IUser} from "../../types/interfaces"
+import * as actions from "../../actions/users";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  const addUser = (newUser: IUser) => {
-    axios
-      .post(`/api/v1/signup`, qs.stringify({ user: newUser }))
-      .then((res) => {
-        localStorage.setItem("token", res.data.jwt)
-        console.log(localStorage.token);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +22,7 @@ export default function RegisterForm() {
       password: password,
     };
 
-    addUser(newUser);
+    dispatch(actions.addUser(newUser));
   };
 
   return (

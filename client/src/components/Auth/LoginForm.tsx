@@ -4,25 +4,12 @@ import axios from "axios";
 import qs from "qs";
 import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
-import {IUser} from "../../types/interfaces"
+import * as actions from "../../actions/users";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  const getJwtToken = (user: IUser) => {
-    axios
-      .post(`/api/v1/login`, qs.stringify({ user: user }))
-      .then((res) => {
-        localStorage.setItem("token", res.data.jwt)
-        console.log(res.data);
-        console.log(localStorage.token);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +19,7 @@ export default function RegisterForm() {
       password: password,
     };
 
-    getJwtToken(user);
+    dispatch(actions.getJwtToken(user));
   };
 
   return (

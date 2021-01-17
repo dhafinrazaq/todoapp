@@ -96,3 +96,23 @@ export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
       console.log("error");
     });
 };
+
+export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
+  axios
+    .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }), {
+      headers: { Authorization: localStorage.token },
+    })
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: ACTIONS.ADD_TODO,
+        payload: {
+          todo: res.data,
+        },
+      });
+      console.log("success");
+    })
+    .catch((error) => {
+      console.log("error");
+    });
+};

@@ -1,33 +1,13 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
-import axios from "axios";
-import qs from "qs";
-import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
 import {ITodo, ITag, IState} from "../../types/interfaces"
+import * as actions from "../../actions/todos";
 
 export default function TodoForm() {
   const [name, setName] = useState("");
   const [tagList, setTagList] = useState("");
   const dispatch = useDispatch();
-
-  const addTodo = (newTodo: ITodo) => {
-    axios
-      .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }), { headers: { Authorization: localStorage.token } })
-      .then((res) => {
-        console.log(res.data);
-        dispatch({
-          type: ACTIONS.ADD_TODO,
-          payload: {
-            todo: res.data,
-          },
-        });
-        console.log("success");
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,7 +18,7 @@ export default function TodoForm() {
       tag_list: tagList,
     };
 
-    addTodo(newTodo);
+    dispatch(actions.addTodo(newTodo));
   };
 
   return (
