@@ -18,20 +18,15 @@ class Api::V1::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user
+      payload = {user_id: @user.id}
+        token = encode_token(payload)
+        render json: {
+            :username => @user.username,
+            :jwt => token
+        }
     else
-      render error: { error: 'Unable to create user'}, status: 400
+        render json: {error: 'Error creating account'}
     end
-    #     payload = {user_id: user.id}
-    #     token = encode_token(payload)
-    #     render json: {
-    #         :user => user.to_json(:include => [
-    #             :todos]),
-    #         :jwt => token
-    #     }
-    # else
-    #     render json: {error: 'Error creating account'}
-    # end
   end
 
   private

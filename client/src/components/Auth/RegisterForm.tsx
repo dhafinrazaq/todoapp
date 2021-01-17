@@ -16,6 +16,7 @@ export default function RegisterForm() {
     axios
       .post(`/api/v1/signup`, qs.stringify({ user: newUser }))
       .then((res) => {
+        localStorage.setItem("token", res.data.jwt)
         console.log(res.data);
       })
       .catch((error) => {
