@@ -8,15 +8,15 @@ import {IUser} from "../../types/interfaces"
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const addUser = (newUser: IUser) => {
+  const getJwtToken = (user: IUser) => {
     axios
-      .post(`/api/v1/signup`, qs.stringify({ user: newUser }))
+      .post(`/api/v1/login`, qs.stringify({ user: user }))
       .then((res) => {
         localStorage.setItem("token", res.data.jwt)
+        console.log(res.data);
         console.log(localStorage.token);
       })
       .catch((error) => {
@@ -27,13 +27,12 @@ export default function RegisterForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newUser = {
+    const user = {
       username: username,
-      email: email,
       password: password,
     };
 
-    addUser(newUser);
+    getJwtToken(user);
   };
 
   return (
@@ -47,16 +46,6 @@ export default function RegisterForm() {
             id="username"
             placeholder="username"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
-          ></Input>
-        </FormGroup>
-        <FormGroup>
-          <Input
-            required
-            type="text"
-            name="email"
-            id="email"
-            placeholder="email"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           ></Input>
         </FormGroup>
 

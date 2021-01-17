@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { Container } from "reactstrap";
 import TodoList from "./components/Todo/TodoList";
 import RegisterForm from "./components/Auth/RegisterForm";
+import LoginForm from "./components/Auth/LoginForm";
 
 function App() {
   return (
@@ -25,6 +26,15 @@ function App() {
           render={(props) => (
             <React.Fragment>
               <RegisterForm></RegisterForm>
+            </React.Fragment>
+          )}
+        />
+        <Route
+          exact
+          path="/login"
+          render={(props) => (
+            <React.Fragment>
+              <LoginForm></LoginForm>
             </React.Fragment>
           )}
         />

@@ -1,9 +1,9 @@
 class Api::V1::SessionController < ApplicationController    
   skip_before_action :verify_authenticity_token
-  
+
   def login
-    user = User.find_by :email=>params[:email]
-    if user && user.authenticate(params[:password])
+    user = User.find_by :username=>user_params[:username]
+    if user && user.authenticate(user_params[:password])
         payload = {user_id: user.id}
         token = encode_token(payload)
         render json: {
@@ -24,4 +24,9 @@ class Api::V1::SessionController < ApplicationController
     end     
   end
 
+  private
+
+    def user_params
+      params.require(:user).permit(:username, :password)
+    end
 end

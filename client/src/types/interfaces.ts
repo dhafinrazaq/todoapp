@@ -24,5 +24,5 @@ export interface IAction {
 export interface IUser {
   username: string;
   password: string;
-  email: string;
+  email?: string;
 }
