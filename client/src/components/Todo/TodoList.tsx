@@ -18,8 +18,8 @@ const updateTodo = (todo: ITodo) => {
 
 export default function TodoList() {
   const dispatch = useDispatch();
-  const todos: ITodo[] = useSelector((state: IState) => state.todos);
-  const tagName: string = useSelector((state: IState) => state.tag);
+  const todos: ITodo[] = useSelector((state: IState) => state.todo.todos);
+  const tagName: string = useSelector((state: IState) => state.todo.tag);
 
   const handleCheck = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, todo: ITodo) => {
     e.preventDefault();

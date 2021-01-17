@@ -4,8 +4,8 @@ import * as actions from "../../actions/todos";
 import {ITodo, ITag, IState} from "../../types/interfaces"
 
 export default function TagsBar() {
-  const tags: ITag[] = useSelector((state: IState) => state.tags);
-  const todos: ITodo[] = useSelector((state: IState) => state.todos);
+  const tags: ITag[] = useSelector((state: IState) => state.todo.tags);
+  const todos: ITodo[] = useSelector((state: IState) => state.todo.todos);
   const dispatch = useDispatch();
 
   useEffect(() => {

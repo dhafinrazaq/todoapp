@@ -9,11 +9,22 @@ export interface ITag {
   name: string;
 }
 
-export interface IState {
+export interface ITodoState {
   todos: ITodo[];
   todo: ITodo | undefined;
   tags: ITag[];
   tag: string;
+}
+
+export interface IAuthState {
+  username: string;
+  isAuth: boolean;
+  token: string;
+}
+
+export interface IState {
+  todo: ITodoState;
+  auth: IAuthState;
 }
 
 export interface IAction {

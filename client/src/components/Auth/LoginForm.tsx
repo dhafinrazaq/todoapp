@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
-import axios from "axios";
-import qs from "qs";
-import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../actions/users";
 

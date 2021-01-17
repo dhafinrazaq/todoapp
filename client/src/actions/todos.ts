@@ -1,7 +1,6 @@
-import { ACTIONS as TYPES } from "../redux";
+import * as types from "../actions/types";
 import axios from "axios";
 import qs from "qs";
-import { ACTIONS } from "../redux";
 import { ITodo, ITag } from "../types/interfaces";
 
 export const getTodos = () => (dispatch: Function) => {
@@ -9,7 +8,7 @@ export const getTodos = () => (dispatch: Function) => {
     .get(`/api/v1/todos`, { headers: { Authorization: localStorage.token } })
     .then((res) => {
       dispatch({
-        type: TYPES.LOAD_TODOS,
+        type: types.LOAD_TODOS,
         payload: {
           todos: res.data,
           tag: "All",
@@ -28,7 +27,7 @@ export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
     )
     .then((res) => {
       dispatch({
-        type: ACTIONS.UPDATE_TODO,
+        type: types.UPDATE_TODO,
         payload: {
           todo: res.data,
         },
@@ -47,7 +46,7 @@ export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
     })
     .then((res) => {
       dispatch({
-        type: ACTIONS.DELETE_TODO,
+        type: types.DELETE_TODO,
         payload: {
           todo: res.data,
         },
@@ -64,7 +63,7 @@ export const getTags = () => (dispatch: Function) => {
     .get(`/api/v1/tags`, { headers: { Authorization: localStorage.token } })
     .then((res) => {
       dispatch({
-        type: ACTIONS.LOAD_TAGS,
+        type: types.LOAD_TAGS,
         payload: {
           tags: res.data,
         },
@@ -83,7 +82,7 @@ export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
     })
     .then((res) => {
       dispatch({
-        type: ACTIONS.LOAD_TODOS,
+        type: types.LOAD_TODOS,
         payload: {
           todos: res.data,
           tag: tag.name,
@@ -105,7 +104,7 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
     .then((res) => {
       console.log(res.data);
       dispatch({
-        type: ACTIONS.ADD_TODO,
+        type: types.ADD_TODO,
         payload: {
           todo: res.data,
         },
