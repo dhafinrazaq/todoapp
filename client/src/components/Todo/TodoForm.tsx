@@ -4,13 +4,14 @@ import axios from "axios";
 import qs from "qs";
 import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
+import {ITodo, ITag, IState} from "../../types/interfaces"
 
 export default function TodoForm() {
   const [name, setName] = useState("");
   const [tagList, setTagList] = useState("");
   const dispatch = useDispatch();
 
-  const addTodo = (newTodo) => {
+  const addTodo = (newTodo: ITodo) => {
     axios
       .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }))
       .then((res) => {
@@ -28,7 +29,7 @@ export default function TodoForm() {
       });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newTodo = {
@@ -42,7 +43,7 @@ export default function TodoForm() {
 
   return (
     <div>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <FormGroup>
           <Input
             required
@@ -50,7 +51,7 @@ export default function TodoForm() {
             name="name"
             id="name"
             placeholder="Todo name"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           ></Input>
         </FormGroup>
         <FormGroup>
@@ -60,7 +61,7 @@ export default function TodoForm() {
             name="name"
             id="name"
             placeholder="Tags list"
-            onChange={(e) => setTagList(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTagList(e.target.value)}
           ></Input>
         </FormGroup>
         <Button color="primary" style={{ marginTop: "2rem" }} block>

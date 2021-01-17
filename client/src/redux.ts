@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
+import {IAction, ITodo, IState} from "./types/interfaces"
 
 export const ACTIONS = {
   ADD_TODO: "ADD_TODO",
@@ -10,14 +11,14 @@ export const ACTIONS = {
   DELETE_TODO: "DELETE_TODO",
 };
 
-const initialState = {
+const initialState : IState = {
   todos: [],
-  todo: {},
+  todo: undefined,
   tags: [],
   tag: "All",
 };
 
-function todoReducer(state = initialState, action) {
+function todoReducer(state = initialState, action: IAction) {
   switch (action.type) {
     case ACTIONS.ADD_TODO: {
       const { todo } = action.payload;
@@ -29,12 +30,12 @@ function todoReducer(state = initialState, action) {
     }
 
     case ACTIONS.UPDATE_TODO: {
-      const { todo } = action.payload;
+      const { todo }: {todo: ITodo} = action.payload;
 
       return {
         ...state,
         todos: [
-          ...state.todos.filter((prevTodo) => prevTodo.id !== todo.id),
+          ...state.todos.filter((prevTodo: ITodo) => prevTodo.id !== todo.id),
           todo,
         ],
       };
@@ -75,12 +76,18 @@ function todoReducer(state = initialState, action) {
 
 const middleware = [thunk];
 
-const enableReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__?.();
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export function createReduxStore() {
   const store = createStore(
     todoReducer,
-    compose(applyMiddleware(...middleware), enableReduxDevTools)
+    composeEnhancers(applyMiddleware(...middleware))
   );
   return store;
 }

@@ -2,8 +2,9 @@ import { ACTIONS as TYPES } from "../redux";
 import axios from "axios";
 import qs from "qs";
 import { ACTIONS } from "../redux";
+import {ITodo, ITag} from "../types/interfaces"
 
-export const getTodos = () => (dispatch) => {
+export const getTodos = () => (dispatch: Function) => {
   axios
     .get(`/api/v1/todos`)
     .then((res) => {
@@ -18,7 +19,7 @@ export const getTodos = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const markTodo = (updatedTodo) => (dispatch) => {
+export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
   axios
     .put(`/api/v1/todos/${updatedTodo.id}`, qs.stringify({ todo: updatedTodo }))
     .then((res) => {
@@ -35,7 +36,7 @@ export const markTodo = (updatedTodo) => (dispatch) => {
     });
 };
 
-export const deleteTodo = (todo) => (dispatch) => {
+export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
   axios
     .delete(`/api/v1/todos/${todo.id}`)
     .then((res) => {
@@ -52,7 +53,7 @@ export const deleteTodo = (todo) => (dispatch) => {
     });
 };
 
-export const getTags = () => (dispatch) => {
+export const getTags = () => (dispatch: Function) => {
   axios
     .get(`/api/v1/tags`)
     .then((res) => {
@@ -69,7 +70,7 @@ export const getTags = () => (dispatch) => {
     });
 };
 
-export const getTodoWithTag = (tag) => (dispatch) => {
+export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
   axios
     .get(`/api/v1/todos/tag/${tag.name}`)
     .then((res) => {

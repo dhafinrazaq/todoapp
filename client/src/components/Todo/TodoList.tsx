@@ -5,8 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
 import TagsBar from "./TagsBar";
 import * as actions from "../../actions/todos";
+import {ITodo, ITag, IState} from "../../types/interfaces"
 
-const updateTodo = (todo) => {
+const updateTodo = (todo: ITodo) => {
   const updatedTodo = {
     ...todo,
     isCompleted: !todo.isCompleted,
@@ -17,16 +18,16 @@ const updateTodo = (todo) => {
 
 export default function TodoList() {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos);
-  const tagName = useSelector((state) => state.tag);
+  const todos: ITodo[] = useSelector((state: IState) => state.todos);
+  const tagName: string = useSelector((state: IState) => state.tag);
 
-  const handleCheck = (e, todo) => {
+  const handleCheck = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, todo: ITodo) => {
     e.preventDefault();
     const updatedTodo = updateTodo(todo);
     dispatch(actions.markTodo(updatedTodo));
   };
 
-  const handleDelete = (e, todo) => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, todo: ITodo) => {
     e.preventDefault();
     dispatch(actions.deleteTodo(todo));
   };
@@ -46,7 +47,7 @@ export default function TodoList() {
           <TodoForm></TodoForm>
           {tagName}
           <ol>
-            {todos.map((todo) => (
+            {todos.map((todo: ITodo) => (
               <li>
                 <Button
                   color="primary"

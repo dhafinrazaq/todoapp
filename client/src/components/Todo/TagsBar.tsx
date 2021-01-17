@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
-import axios from "axios";
-import { ACTIONS } from "../../redux";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../actions/todos";
+import {ITodo, ITag, IState} from "../../types/interfaces"
 
 export default function TagsBar() {
-  const tags = useSelector((state) => state.tags);
+  const tags: ITag[] = useSelector((state: IState) => state.tags);
   const dispatch = useDispatch();
 
   useEffect(() => {
