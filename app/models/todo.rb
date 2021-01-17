@@ -4,14 +4,9 @@ class Todo < ApplicationRecord
 
   belongs_to :user
   belongs_to :tag
-  
-  def self.tagged_with(name)
-    Tag.find_by!(name: name).todos
-  end
 
   def self.tag_user(tag_id, user_id)
     Todo.where(user_id: user_id, tag_id: tag_id)
-    # Tag.find_by!(name: tag_name).todos.find_by(user_id: user_id)
   end
 
   def self.tag_counts
@@ -22,7 +17,7 @@ class Todo < ApplicationRecord
     tags.map(&:name).join(', ')
   end
 
-  def tag_list=(name)
-    self.tag = Tag.where(name: name.strip).first_or_create!
+  def set_tag(name, user_id)
+    self.tag = Tag.where(name: name.strip, user_id: user_id).first_or_create!
   end
 end

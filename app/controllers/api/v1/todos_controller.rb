@@ -28,7 +28,12 @@ class Api::V1::TodosController < ApplicationController
   def create
     print "params:\n"
     print todo_params
-    @todo = @user.todos.new(todo_params)
+    @todo = Todo.new
+    @todo.user_id = @user.id
+    @todo.name = todo_params["name"]
+    @todo.isCompleted = todo_params["isCompleted"]
+    @todo.set_tag(todo_params["tag_list"], @user.id)
+    # @todo = @user.todos.new(todo_params)
     print @todo
     print "\n"
     print "todo above"

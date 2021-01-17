@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_121248) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_id"
   end
 
   create_table "todos", force: :cascade do |t|
