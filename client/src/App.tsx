@@ -6,10 +6,12 @@ import { Container } from "reactstrap";
 import TodoList from "./components/Todo/TodoList";
 import RegisterForm from "./components/Auth/RegisterForm";
 import LoginForm from "./components/Auth/LoginForm";
+import AppNavbar from "./components/Home/AppNavbar";
 
 function App() {
   return (
     <Router>
+      <AppNavbar></AppNavbar>
       <Container>
         <Route
           exact
