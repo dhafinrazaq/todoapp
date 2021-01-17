@@ -47,7 +47,8 @@ export default function TodoList() {
           <TodoForm></TodoForm>
           {tagName}
           <ol>
-            {todos.map((todo: ITodo) => (
+            {
+            todos.map((todo: ITodo) => (
               <li>
                 <Button
                   color="primary"

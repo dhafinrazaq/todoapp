@@ -21,7 +21,11 @@ export const getTodos = () => (dispatch: Function) => {
 
 export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
   axios
-    .put(`/api/v1/todos/${updatedTodo.id}`, qs.stringify({ todo: updatedTodo }))
+    .put(
+      `/api/v1/todos/${updatedTodo.id}`,
+      qs.stringify({ todo: updatedTodo }),
+      { headers: { Authorization: localStorage.token } }
+    )
     .then((res) => {
       dispatch({
         type: ACTIONS.UPDATE_TODO,
@@ -38,7 +42,9 @@ export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
 
 export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
   axios
-    .delete(`/api/v1/todos/${todo.id}`)
+    .delete(`/api/v1/todos/${todo.id}`, {
+      headers: { Authorization: localStorage.token },
+    })
     .then((res) => {
       dispatch({
         type: ACTIONS.DELETE_TODO,
@@ -55,7 +61,7 @@ export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
 
 export const getTags = () => (dispatch: Function) => {
   axios
-    .get(`/api/v1/tags`)
+    .get(`/api/v1/tags`, { headers: { Authorization: localStorage.token } })
     .then((res) => {
       dispatch({
         type: ACTIONS.LOAD_TAGS,
@@ -72,7 +78,9 @@ export const getTags = () => (dispatch: Function) => {
 
 export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos/tag/${tag.name}`)
+    .get(`/api/v1/todos/tag/${tag.name}`, {
+      headers: { Authorization: localStorage.token },
+    })
     .then((res) => {
       dispatch({
         type: ACTIONS.LOAD_TODOS,
@@ -82,6 +90,7 @@ export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
         },
       });
       console.log("success");
+      console.log(res.data);
     })
     .catch((error) => {
       console.log("error");

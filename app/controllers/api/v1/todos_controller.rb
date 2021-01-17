@@ -4,16 +4,16 @@ class Api::V1::TodosController < ApplicationController
 
   # GET /todos
   def index
-    @todos = Todo.all
+    @todos = @user.todos
     render json: @todos
   end
 
   # GET /todos/tag/:tag
   def index_with_tag
     if params[:tag]
-      @todos = Todo.tagged_with(params[:tag])
+      @todos = Todo.tag_user(Tag.find_by(name: params[:tag]).id, @user.id)
     else
-      @todos = Todo.all
+      @todos = @user.todos
     end
     render json: @todos
   end
