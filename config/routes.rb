@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/index'
-  get 'users/show'
-  get 'users/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -13,6 +10,14 @@ Rails.application.routes.draw do
       # tags
       resources :tags do
       end
+
+      resources :users do
+      end
+
+      post '/login', to: "session#login"
+      post '/signup', to: "users#create"
+      get '/auto-login', to: "session#auto_login"
+      
     end
   end
 end

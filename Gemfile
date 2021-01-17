@@ -65,3 +65,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # To fix CORS error
 gem 'rack-cors', :require => 'rack/cors'
+
+gem 'pry'
+
+gem 'bcrypt'
+
+gem 'jwt'
