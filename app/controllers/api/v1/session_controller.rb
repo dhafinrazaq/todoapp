@@ -1,5 +1,6 @@
 class Api::V1::SessionController < ApplicationController    
-
+  skip_before_action :verify_authenticity_token
+  
   def login
     user = User.find_by :email=>params[:email]
     if user && user.authenticate(params[:password])

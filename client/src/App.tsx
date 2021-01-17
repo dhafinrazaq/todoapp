@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 import TodoList from "./components/Todo/TodoList";
+import RegisterForm from "./components/Auth/RegisterForm";
 
 function App() {
   return (
@@ -15,6 +16,15 @@ function App() {
           render={(props) => (
             <React.Fragment>
               <TodoList></TodoList>
+            </React.Fragment>
+          )}
+        />
+        <Route
+          exact
+          path="/register"
+          render={(props) => (
+            <React.Fragment>
+              <RegisterForm></RegisterForm>
             </React.Fragment>
           )}
         />

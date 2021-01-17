@@ -4,5 +4,5 @@ class User < ApplicationRecord
   has_many :todos
   has_many :tags
 
-  validates :name, :email, presence: true
+  validates :username, :email, presence: true
 end
