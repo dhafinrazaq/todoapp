@@ -1,5 +1,6 @@
 class Api::V1::TodosController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :set_user
 
   # GET /todos
   def index
@@ -25,7 +26,12 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /todos
   def create
-    @todo = Todo.new(todo_params)
+    print "params:\n"
+    print todo_params
+    @todo = @user.todos.new(todo_params)
+    print @todo
+    print "\n"
+    print "todo above"
     if @todo.save
       render json: @todo
     else
@@ -53,6 +59,17 @@ class Api::V1::TodosController < ApplicationController
     else
       render json: { error: 'Unable to delete todo'}, status: 400
     end
+  end
+
+  def set_user
+    print "below\n"
+    print request.headers["Authorization"]
+    print "\n"
+    print "above\n"
+    @user = session_user
+    print @user.username
+    print "\n"
+    print "above is user\n"
   end
 
   private

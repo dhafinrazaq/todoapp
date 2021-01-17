@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   end
 
   def auth_header_token
-    request.headers['Authorization'].split(' ')[1]
+    request.headers['Authorization']
   end
  
   def session_user

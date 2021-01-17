@@ -13,7 +13,7 @@ export default function TodoForm() {
 
   const addTodo = (newTodo: ITodo) => {
     axios
-      .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }))
+      .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }), { headers: { Authorization: localStorage.token } })
       .then((res) => {
         console.log(res.data);
         dispatch({

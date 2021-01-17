@@ -2,11 +2,11 @@ import { ACTIONS as TYPES } from "../redux";
 import axios from "axios";
 import qs from "qs";
 import { ACTIONS } from "../redux";
-import {ITodo, ITag} from "../types/interfaces"
+import { ITodo, ITag } from "../types/interfaces";
 
 export const getTodos = () => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos`)
+    .get(`/api/v1/todos`, { headers: { Authorization: localStorage.token } })
     .then((res) => {
       dispatch({
         type: TYPES.LOAD_TODOS,
