@@ -16,8 +16,29 @@ export const getJwtToken = (user: IUser) => (dispatch: Function) => {
       localStorage.setItem("token", res.data.jwt);
       console.log(res.data);
       console.log(localStorage.token);
+      window.location.href = "/";
     })
     .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const auth = () => (dispatch: Function) => {
+  axios
+    .get(`/api/v1/auth`, { headers: { Authorization: localStorage.token } })
+    .then((res) => {
+      dispatch({
+        type: types.LOGIN_SUCCESS,
+        payload: {
+          jwt: res.data.jwt,
+        },
+      });
+      localStorage.setItem("token", res.data.jwt);
+      console.log(res.data);
+      console.log(localStorage.token);
+    })
+    .catch((error) => {
+      // window.location.href = "/login";
       console.log(error);
     });
 };
@@ -33,6 +54,7 @@ export const addUser = (newUser: IUser) => (dispatch: Function) => {
         },
       });
       localStorage.setItem("token", res.data.jwt);
+      window.location.href = "/";
       console.log(localStorage.token);
     })
     .catch((error) => {

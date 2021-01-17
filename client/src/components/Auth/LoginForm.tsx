@@ -44,7 +44,7 @@ export default function RegisterForm() {
           ></Input>
         </FormGroup>
         <Button color="primary" style={{ marginTop: "2rem" }} block>
-          Register
+          Login
         </Button>
       </Form>
     </div>

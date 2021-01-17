@@ -16,9 +16,12 @@ class Api::V1::SessionController < ApplicationController
   end
                             
 
-  def auto_login
+  def auth
     if session_user
-        render json: session_user
+        render json: {
+          user: session_user,               
+          jwt: request.headers['Authorization']
+      }
     else
         render json: {errors: "No User Logged In."}
     end     
