@@ -1,3 +1,14 @@
 .completed-todo {
   text-decoration: line-through;
 }
+
+.todo-card {
+  padding-bottom: 2em;
+  padding-top: 2em;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+}
+
+.todo-form {
+  padding-bottom: 2em;
+}

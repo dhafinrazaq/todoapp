@@ -23,7 +23,7 @@ export default function TodoForm() {
 
   return (
     <div>
-      <Form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
+      <Form className="todo-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <FormGroup>
           <Input
             required

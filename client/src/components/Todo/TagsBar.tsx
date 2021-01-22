@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../actions/todos";
 import {ITodo, ITag, IState} from "../../types/interfaces"
+import { Button, Row, Col } from "reactstrap";
 
 export default function TagsBar() {
   const tags: ITag[] = useSelector((state: IState) => state.todo.tags);
@@ -15,29 +16,29 @@ export default function TagsBar() {
 
   return (
     <div>
-      <ol>
+      <ul>
         Tags
         <li>
-          <p
+          <Button color="link"
             onClick={() => {
               dispatch(actions.getTodos());
             }}
           >
             All
-          </p>
+          </Button>
         </li>
         {tags.map((tag) => (
           <li>
-            <p
+            <Button color="link"
               onClick={() => {
                 dispatch(actions.getTodoWithTag(tag));
               }}
             >
               {tag.name}
-            </p>
+            </Button>
           </li>
         ))}
-      </ol>
+      </ul>
     </div>
   );
 }
