@@ -8,12 +8,19 @@ import RegisterForm from "./components/Auth/RegisterForm";
 import LoginForm from "./components/Auth/LoginForm";
 import AppNavbar from "./components/Home/AppNavbar";
 import { useSelector, useDispatch } from "react-redux";
-import {IState} from "./types/interfaces"
 import * as actions from "./actions/users";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth: boolean = localStorage.token !== null && localStorage.token !== "";
+  function isAuth(): boolean {
+    if (typeof localStorage.token != "undefined" && localStorage.token !== null && localStorage.token !== "" && localStorage.token != "undefined") {
+      console.log("logged in");
+      return true;
+    } else {
+      console.log("not logged in");
+      return false;
+    }
+  }
 
   useEffect(() => {
     console.log("SERVER_EVENT: auth-ing");
@@ -47,7 +54,7 @@ function App() {
         <Route
           exact
           path="/"
-          render={(props) => isAuth ? (
+          render={(props) => isAuth() ? (
               <TodoList></TodoList>
               ) : <Redirect to={{ pathname: '/login', state: { from: props.location } }} /> 
           }
