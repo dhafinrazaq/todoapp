@@ -7,6 +7,7 @@ import "./style.css";
 import TagsBar from "./TagsBar";
 import * as actions from "../../actions/todos";
 import {ITodo, ITag, IState} from "../../types/interfaces"
+import SearchBar from "./SearchBar"
 
 const updateTodo = (todo: ITodo) => {
   const updatedTodo = {
@@ -40,11 +41,13 @@ export default function TodoList() {
 
   return (
     <div>
+      
       <Row>
         <Col md={2}>
           <TagsBar></TagsBar>
         </Col>
         <Col md={9}>
+          <SearchBar></SearchBar>
           <TodoForm></TodoForm>
           <h3>{tagName}</h3>
             {
