@@ -6,31 +6,33 @@ import { useSelector, useDispatch } from "react-redux";
 import {ITodo, ITag, IState} from "../../types/interfaces"
 import * as actions from "../../actions/todos";
 import {Search} from "../Icons/Icons"
-
-const tags = [ 'hello', 'world' ];
-  
+import {searchBarTheme} from "./style"
   // Teach Autosuggest how to calculate suggestions for any given input value.
+
+
+export default function SearchBar() {
+  const tags: ITag[] = useSelector((state: IState) => state.todo.tags);
+  const [value, setValue] = useState('');
+  const [tag, setTag] = useState<ITag>();
+  const [suggestions, setSuggestions] = useState<ITag[]>([]);
+  const dispatch = useDispatch();
+
+  const getSuggestionValue = (suggestion: ITag) => suggestion.name;
+
+  const renderSuggestion = (suggestion: ITag) => (
+    <div>
+      {suggestion.name}
+    </div>
+  );
+
   const getSuggestions = (value: string) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
   
     return inputLength === 0 ? [] : tags.filter(tag =>
-      tag.toLowerCase().slice(0, inputLength) === inputValue
+      tag.name.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
-
-export default function SearchBar() {
-  const [value, setValue] = useState('');  
-  const [suggestions, setSuggestions] = useState(['hello', 'world']);
-  const dispatch = useDispatch();
-
-  const getSuggestionValue = (suggestion: string) => suggestion;
-
-  const renderSuggestion = (suggestion: string) => (
-    <div>
-      {suggestion}
-    </div>
-  );
 
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
@@ -45,16 +47,29 @@ export default function SearchBar() {
 
   const onChange = (event: any, { newValue, method }: {newValue: string, method: string}) => {
     setValue(newValue);
+
+    if (method == "click" || method == "down" || method == "up" || method == "enter") {
+        setTag(tags.find(tag => tag.name === newValue));
+    }
   };
 
   const inputProps = {
-    placeholder: 'Type a programming language',
+    placeholder: 'Search tag',
     value,
     onChange: onChange
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (typeof tag === "undefined") {
+        console.log("all todos load");
+        dispatch(actions.getTodos());
+    } else {
+        console.log("todos with tag")
+        // @ts-ignore
+        dispatch(actions.getTodoWithTag(tag));
+    }
 
     console.log(value)
   };
@@ -70,22 +85,7 @@ export default function SearchBar() {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
-        theme={{
-            container:                'react-autosuggest__container',
-            containerOpen:            'react-autosuggest__container--open',
-            input:                    'react-autosuggest__input',
-            inputOpen:                'react-autosuggest__input--open',
-            inputFocused:             'react-autosuggest__input--focused',
-            suggestionsContainer:     'react-autosuggest__suggestions-container',
-            suggestionsContainerOpen: 'react-autosuggest__suggestions-container--open',
-            suggestionsList:          'react-autosuggest__suggestions-list',
-            suggestion:               'react-autosuggest__suggestion',
-            suggestionFirst:          'react-autosuggest__suggestion--first',
-            suggestionHighlighted:    'react-autosuggest__suggestion--highlighted',
-            sectionContainer:         'react-autosuggest__section-container',
-            sectionContainerFirst:    'react-autosuggest__section-container--first',
-            sectionTitle:             'react-autosuggest__section-title'
-          }}
+        theme={searchBarTheme}
       />
       <Button><Search></Search></Button>
       </Form>
