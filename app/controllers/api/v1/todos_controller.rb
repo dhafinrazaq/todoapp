@@ -33,14 +33,11 @@ class Api::V1::TodosController < ApplicationController
     @todo.name = todo_params["name"]
     @todo.isCompleted = todo_params["isCompleted"]
     @todo.set_tag(todo_params["tag_list"], @user.id)
-    # @todo = @user.todos.new(todo_params)
-    print @todo
-    print "\n"
-    print "todo above"
+
     if @todo.save
       render json: @todo
     else
-      render error: { error: 'Unable to create todo'}, status: 400
+      render json: { error: 'Unable to create todo'}, status: 400
     end
   end
 
@@ -68,6 +65,9 @@ class Api::V1::TodosController < ApplicationController
 
   def set_user
     @user = session_user
+    if !@user
+      render json: { error: 'You are not logged in'}, status: 400
+    end
   end
 
   private

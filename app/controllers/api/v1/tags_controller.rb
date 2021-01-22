@@ -15,6 +15,9 @@ class Api::V1::TagsController < ApplicationController
 
   def set_user
     @user = session_user
+    if !@user
+      render json: { error: 'You are not logged in'}, status: 400
+    end
   end
   
 end
