@@ -1,14 +1,16 @@
+## This rule redirects to an external API, signing requests with a secret
+[[redirects]]
+  from = "/api/v1/*"
+  to = "https://todoapp-cvwo.herokuapp.com/api/v1/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-## This rule redirects to an external API, signing requests with a secret
-[[redirects]]
-  from = "/api/v1"
-  to = "https://todoapp-cvwo.herokuapp.com"
-  status = 200
-  force = true
+
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
