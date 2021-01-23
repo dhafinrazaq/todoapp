@@ -77,7 +77,7 @@ export const getTags = () => (dispatch: Function) => {
 
 export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos/tag/${tag.name}`, {
+    .get(`/api/v1/todos/tag/${tag.id}`, {
       headers: { Authorization: localStorage.token },
     })
     .then((res) => {

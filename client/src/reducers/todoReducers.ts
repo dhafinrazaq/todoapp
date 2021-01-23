@@ -13,7 +13,10 @@ export default function todoReducers(state = initialState, action: IAction) {
     case types.ADD_TODO: {
       const { todo } = action.payload;
 
-      if (state.tag === "All" || todo.tag.name === state.tag) {
+      if (
+        state.tag === "All" ||
+        todo.tags.map((tag: any) => tag.name).includes(state.tag)
+      ) {
         return {
           ...state,
           todos: [...state.todos, todo],

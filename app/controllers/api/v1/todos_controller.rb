@@ -11,7 +11,7 @@ class Api::V1::TodosController < ApplicationController
   # GET /todos/tag/:tag
   def index_with_tag
     if params[:tag]
-      @todos = Todo.tag_user(Tag.find_by(name: params[:tag]).id, @user.id)
+      @todos = Tag.find_by!(id: params[:tag]).todos
     else
       @todos = @user.todos
     end

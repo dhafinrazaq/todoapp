@@ -25,6 +25,8 @@ class Todo < ApplicationRecord
     self.tags = names.split(',').map do |n|
       Tag.where(name: n.strip, user_id: user_id).first_or_create!
     end
+    print "belowq\n"
+    print self.tags
   end
   # def tag_list=(names)
   #   print(names)
