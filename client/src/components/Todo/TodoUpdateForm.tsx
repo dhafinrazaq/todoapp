@@ -17,24 +17,30 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
     dispatch(actions.getTodo(id));
   }, [dispatch]);
 
-  // const [name, setName] = useState(todo.name);
-  // const [tagList, setTagList] = useState(todo.);
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
 
-  //   const newTodo = {
-  //     name: name,
-  //     isCompleted: false,
-  //     tag_list: tagList,
-  //   };
+  const [name, setName] = useState(todo ? todo.name : "");
+  // const [tagList, setTagList] = useState(todo ? todo.tag.name : "");
 
-  //   dispatch(actions.editTodo(newTodo));
-  // };
+  useEffect(() => {
+    setName(todo ? todo.name : name);
+  }, [todo, dispatch]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const newTodo = {
+      name: name,
+      isCompleted: false,
+      // tag_list: tagList,
+    };
+
+    dispatch(actions.editTodo(id, newTodo));
+  };
 
   return (
     <div>
-      {/* <Form className="todo-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
+      <Form className="todo-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <FormGroup>
           <Input
             required
@@ -42,10 +48,11 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
             name="name"
             id="name"
             placeholder="Todo name"
+            defaultValue={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           ></Input>
         </FormGroup>
-        <FormGroup>
+        {/* <FormGroup>
           <Input
             required
             type="text"
@@ -54,12 +61,11 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
             placeholder="Tags list"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTagList(e.target.value)}
           ></Input>
-        </FormGroup>
+        </FormGroup> */}
         <Button color="primary" style={{ marginTop: "2rem" }} block>
-          Add todo
+          Update and Go Back To Homepage
         </Button>
-      </Form> */}
-      {todo ? todo.name : ""}
+      </Form>
     </div>
   );
 }

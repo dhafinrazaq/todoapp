@@ -76,7 +76,6 @@ export default function SearchBar() {
 
   return (
     <div>
-        hello
         <Form onSubmit={e => handleSubmit(e)}>
         <Autosuggest
         suggestions={suggestions}
