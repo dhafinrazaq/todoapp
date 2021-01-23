@@ -112,6 +112,6 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
       console.log("success");
     })
     .catch((error) => {
-      console.log("error");
+      console.log(error);
     });
 };

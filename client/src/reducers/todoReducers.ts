@@ -13,9 +13,15 @@ export default function todoReducers(state = initialState, action: IAction) {
     case types.ADD_TODO: {
       const { todo } = action.payload;
 
+      if (todo.tag.name === state.tag) {
+        return {
+          ...state,
+          todos: [...state.todos, todo],
+        };
+      }
       return {
         ...state,
-        todos: [...state.todos, todo],
+        todos: [...state.todos],
       };
     }
 

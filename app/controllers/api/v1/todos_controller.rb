@@ -35,7 +35,7 @@ class Api::V1::TodosController < ApplicationController
     @todo.set_tag(todo_params["tag_list"], @user.id)
 
     if @todo.save
-      render json: @todo
+      render :json => @todo, :include => [:tag]
     else
       render json: { error: 'Unable to create todo'}, status: 400
     end
