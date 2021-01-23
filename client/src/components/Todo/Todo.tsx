@@ -5,12 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
 import TagsBar from "./TagsBar";
 import * as actions from "../../actions/todos";
-import {Trash, Check} from "../Icons/Icons"
+import {Trash, Check, CheckFilled} from "../Icons/Icons"
 import {ITodo, ITag, IState} from "../../types/interfaces"
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle
-  } from 'reactstrap';
   import { Link } from "react-router-dom";
 
 const updateTodo = (todo: ITodo) => {
@@ -43,19 +39,20 @@ export const Todo: React.FC<Props> = ({todo}) => {
   return (
     <div className="todo-card">
                 <Button
-                    color="primary"
-                    size="sm"
+                    color="link"
+                    style={{color: "green"}}
                     onClick={(e) => handleCheck(e, todo)}
-                ><Check></Check></Button>
+                >{todo.isCompleted ? <CheckFilled></CheckFilled> : <Check></Check>}</Button>
                 <Button
-                    color="danger"
-                    size="sm"
+                color="link"
+                style={{color: "red"}}
                     onClick={(e) => handleDelete(e, todo)}
                 ><Trash></Trash>
                 </Button>
                 <Link to={{ pathname: `/todos/${todo.id}` }} className={todo.isCompleted ? "completed-todo" : ""}>
                     {" "}
                     {todo.name}
+                    {" "}
                 </Link>
     </div>
         

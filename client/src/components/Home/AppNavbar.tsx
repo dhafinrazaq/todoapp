@@ -6,27 +6,32 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
+  NavLink
 } from 'reactstrap';
 import "./style.css"
 import * as actions from "../../actions/users"
 import { useDispatch } from 'react-redux';
+import SearchBar from "../Todo/SearchBar"
 
 
 
 export default function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const token = localStorage.token;
   const dispatch = useDispatch();
 
   const NavItems = (
     <React.Fragment>
-    {(token === null || token === "" ) ? 
+    {(typeof localStorage.token != "undefined" && localStorage.token !== null && localStorage.token !== "" && localStorage.token != "undefined") ? 
+    <React.Fragment>
+    <Nav className="m-auto" navbar>
+        <NavItem><SearchBar></SearchBar></NavItem>
+    </Nav>
+        <Nav className="ml-auto" navbar>
+        <NavLink href="/" onClick={e => dispatch(actions.logout())}>Logout</NavLink>
+        </Nav>
+    </React.Fragment>
+      :
+      <Nav className="ml-auto" navbar>
         <React.Fragment>
           <NavItem>
             <NavLink href="/login/">Login</NavLink>
@@ -35,10 +40,8 @@ export default function AppNavbar() {
             <NavLink href="/register/">Register</NavLink>
           </NavItem>
         </React.Fragment>
-      :
-        <NavItem>
-          <NavLink href="/" onClick={e => dispatch(actions.logout())}>Logout</NavLink>
-        </NavItem>
+        </Nav>
+      
     }
    </React.Fragment>)
 
@@ -50,10 +53,9 @@ export default function AppNavbar() {
         <NavbarBrand href="/">Todo app</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>
+          
             {NavItems}
             
-          </Nav>
         </Collapse>
       </Navbar>
     </div>

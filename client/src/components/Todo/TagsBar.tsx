@@ -15,7 +15,7 @@ export default function TagsBar() {
   }, [dispatch, todos]);
 
   return (
-    <div>
+    <div className="tags-bar">
       <ul>
         Tags
         <li>

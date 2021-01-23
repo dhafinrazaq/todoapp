@@ -57,6 +57,7 @@ class Api::V1::TodosController < ApplicationController
       if todo_params["tag_list"]
         @todo.set_tag(todo_params["tag_list"], @user.id)
       end
+      @todo.save
       render :json => @todo, :include => [:tags]
     else
       render json: { error: 'Unable to update todo'}, status: 400

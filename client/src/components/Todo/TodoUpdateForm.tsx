@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, FormGroup, Input } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {ITodo, ITag, IState} from "../../types/interfaces"
 import * as actions from "../../actions/todos";
@@ -43,6 +43,9 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
     <div>
       <Form className="todo-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <FormGroup>
+          <Label>
+            Name
+          </Label>
           <Input
             required
             type="text"
@@ -54,6 +57,9 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
           ></Input>
         </FormGroup>
         <FormGroup>
+          <Label>
+            Tags
+          </Label>
           <Input
             required
             type="text"

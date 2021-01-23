@@ -47,9 +47,8 @@ export default function TodoList() {
           <TagsBar></TagsBar>
         </Col>
         <Col md={9}>
-          <SearchBar></SearchBar>
           <TodoForm></TodoForm>
-          <h3>{tagName}</h3>
+          <h3 className="text-center">{tagName}</h3>
             {
             todos.map((todo: ITodo) => (
               <Todo todo={todo}></Todo>

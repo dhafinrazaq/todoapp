@@ -17,8 +17,23 @@
   padding-bottom: 2em;
 }
 
+.tags-bar {
+  overflow: scroll;
+  height: 50em;
+}
+
+.search-button {
+  margin-left: 2em;
+}
+
 .react-autosuggest__container {
   position: relative;
+}
+
+.btn-primary-outline {
+  /* background-color: transparent; */
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .react-autosuggest__input {

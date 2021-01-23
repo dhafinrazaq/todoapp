@@ -36,7 +36,7 @@ export default function RegisterForm() {
         <FormGroup>
           <Input
             required
-            type="text"
+            type="password"
             name="password"
             id="password"
             placeholder="password"

@@ -70,13 +70,11 @@ export default function SearchBar() {
         // @ts-ignore
         dispatch(actions.getTodoWithTag(tag));
     }
-
-    console.log(value)
   };
 
   return (
     <div>
-        <Form onSubmit={e => handleSubmit(e)}>
+      <Form className="form-inline" onSubmit={e => handleSubmit(e)} >
         <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -86,7 +84,7 @@ export default function SearchBar() {
         inputProps={inputProps}
         theme={searchBarTheme}
       />
-      <Button><Search></Search></Button>
+        <Button className="search-button" color="link"><Search></Search></Button>
       </Form>
     </div>
   );
