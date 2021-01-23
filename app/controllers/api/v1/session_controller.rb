@@ -11,11 +11,10 @@ class Api::V1::SessionController < ApplicationController
             jwt: token
         }
     else
-        render json: {status: "error", message: "We don't find such an user according to your information, please try again."}
+        render json: {error: "Unable to find account."}, status: 400
     end
   end
                             
-
   def auth
     if session_user
         render json: {
@@ -23,7 +22,7 @@ class Api::V1::SessionController < ApplicationController
           jwt: request.headers['Authorization']
       }
     else
-        render json: {errors: "No User Logged In."}
+        render json: {error: "No User Logged In."}, status: 400
     end     
   end
 

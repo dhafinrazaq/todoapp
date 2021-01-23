@@ -3,10 +3,12 @@ class ApplicationController < ActionController::Base
     JWT.encode(payload, 'secret')
   end
 
+  # get authorization token from header
   def auth_header_token
     request.headers['Authorization']
   end
  
+  # get user based on token
   def session_user
       decoded_hash = decoded_token
       if !decoded_hash.empty?

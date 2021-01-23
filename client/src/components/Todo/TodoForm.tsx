@@ -37,6 +37,7 @@ export default function TodoForm() {
             name="name"
             id="name"
             placeholder="Assignment 2"
+            value={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
@@ -50,6 +51,7 @@ export default function TodoForm() {
             name="name"
             id="name"
             placeholder="homework, CS2040S"
+            value={tagList}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setTagList(e.target.value)
             }

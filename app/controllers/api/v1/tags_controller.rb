@@ -13,6 +13,7 @@ class Api::V1::TagsController < ApplicationController
     render json: @tag
   end
 
+  # check if the user is authorized to see this tag's todos
   def set_user
     @user = session_user
     if !@user

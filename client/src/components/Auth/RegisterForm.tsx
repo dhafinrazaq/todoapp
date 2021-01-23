@@ -23,6 +23,7 @@ export default function RegisterForm() {
 
   return (
     <div>
+      <h3 className="text-center">Register</h3>
       <Form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <FormGroup>
           <Input

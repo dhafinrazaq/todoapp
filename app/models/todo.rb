@@ -1,7 +1,4 @@
 class Todo < ApplicationRecord
-  # has_many :taggings, 
-  # has_many :tags, through: :taggings
-
   before_destroy :clean_up_tags
   belongs_to :user
   has_many :taggings, dependent: :destroy
@@ -10,7 +7,6 @@ class Todo < ApplicationRecord
 
   def self.tag_user(tag_id, user_id)
     Tag.find_by!(id: tag_id).todos
-    # Todo.where(user_id: user_id, tags_id: tag_id)
   end
 
   def self.tag_counts
@@ -29,17 +25,10 @@ class Todo < ApplicationRecord
 
   protected
 
+  # delete tags if there is no associated
   def clean_up_tags
-    print "cleaning up tags\n"
-    print "above\n"
-    print tag_list
-    print "aboveeee\n"
     self.tags.each do |tag|
-      print "inside map\n"
-      print tag.todos.count
-      print "\n"
       if tag.todos.count == 1
-        print "destroying\n"
         tag.destroy
       end
     end

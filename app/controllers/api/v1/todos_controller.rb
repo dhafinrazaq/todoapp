@@ -3,12 +3,14 @@ class Api::V1::TodosController < ApplicationController
   before_action :set_user
 
   # GET /todos
+  # Get all user's todos
   def index
     @todos = @user.todos
     render json: @todos
   end
 
   # GET /todos/tag/:tag
+  # Get user's todos associated with the specified tag
   def index_with_tag
     if params[:tag]
       @todos = Tag.find_by!(id: params[:tag]).todos
@@ -19,17 +21,19 @@ class Api::V1::TodosController < ApplicationController
   end
 
   # GET /todo/:id
+  # Get todo with specified id
   def show
     @todo = Todo.find(params[:id])
     
     if @user.id == @todo.user_id.to_i
       render :json => @todo, :include => [:tags]
     else
-      render json: { error: "Not authorized" }, status: 401
+      render json: { error: "Unable to get todo" }, status: 400
     end
   end
 
   # POST /todos
+  # Create new todo
   def create
     @todo = Todo.new
     @todo.user_id = @user.id
@@ -45,6 +49,7 @@ class Api::V1::TodosController < ApplicationController
   end
 
   # PUT /todos/:id
+  # Update a todo
   def update
     @todo = Todo.find(params[:id])
     if @todo
@@ -65,6 +70,7 @@ class Api::V1::TodosController < ApplicationController
   end
 
   # DELETE /todos/:id
+  # Delete a todo
   def destroy
     @todo = Todo.find(params[:id])
     if @todo
@@ -75,6 +81,7 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
+  # Helper to be called before each of the controllers above to get the user sending the request.
   def set_user
     @user = session_user
     if !@user
