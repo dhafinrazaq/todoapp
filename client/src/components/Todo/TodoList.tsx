@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Button, Row, Col } from "reactstrap";
+import React, { useEffect } from "react";
+import { Row, Col } from "reactstrap";
 import TodoForm from "./TodoForm";
+import { Todo } from "./Todo";
 import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
 import TagsBar from "./TagsBar";
 import * as actions from "../../actions/todos";
-import {ITodo, ITag, IState} from "../../types/interfaces"
+import { ITodo, IState } from "../../types/interfaces";
 
 const updateTodo = (todo: ITodo) => {
   const updatedTodo = {
@@ -21,17 +22,6 @@ export default function TodoList() {
   const todos: ITodo[] = useSelector((state: IState) => state.todo.todos);
   const tagName: string = useSelector((state: IState) => state.todo.tag);
 
-  const handleCheck = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, todo: ITodo) => {
-    e.preventDefault();
-    const updatedTodo = updateTodo(todo);
-    dispatch(actions.markTodo(updatedTodo));
-  };
-
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, todo: ITodo) => {
-    e.preventDefault();
-    dispatch(actions.deleteTodo(todo));
-  };
-
   useEffect(() => {
     console.log("SERVER_EVENT: todo list changed");
     dispatch(actions.getTodos());
@@ -45,28 +35,10 @@ export default function TodoList() {
         </Col>
         <Col md={9}>
           <TodoForm></TodoForm>
-          {tagName}
-          <ol>
-            {
-            todos.map((todo: ITodo) => (
-              <li>
-                <Button
-                  color="primary"
-                  size="sm"
-                  onClick={(e) => handleCheck(e, todo)}
-                ></Button>
-                <Button
-                  color="danger"
-                  size="sm"
-                  onClick={(e) => handleDelete(e, todo)}
-                ></Button>
-                <span className={todo.isCompleted ? "completed-todo" : ""}>
-                  {" "}
-                  {todo.name}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <h3 className="text-center">{tagName}</h3>
+          {todos.map((todo: ITodo) => (
+            <Todo todo={todo}></Todo>
+          ))}
         </Col>
       </Row>
     </div>

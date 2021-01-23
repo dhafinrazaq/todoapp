@@ -2,6 +2,7 @@ export interface ITodo {
   id?: number;
   name: string;
   isCompleted: boolean;
+  tags?: ITag[];
 }
 
 export interface ITag {
@@ -20,6 +21,8 @@ export interface IAuthState {
   username: string;
   isAuth: boolean;
   token: string;
+  loginErrorMsg: string;
+  registerErrorMsg: string;
 }
 
 export interface IState {

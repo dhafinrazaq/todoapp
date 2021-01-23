@@ -5,6 +5,8 @@ const initialState: IAuthState = {
   username: "",
   isAuth: false,
   token: "",
+  loginErrorMsg: "",
+  registerErrorMsg: "",
 };
 
 export default function authReducers(state = initialState, action: IAction) {
@@ -26,6 +28,24 @@ export default function authReducers(state = initialState, action: IAction) {
         ...state,
         isAuth: true,
         token: jwt,
+      };
+    }
+
+    case types.LOGIN_ERROR: {
+      const { msg }: { msg: string } = action.payload;
+
+      return {
+        ...state,
+        loginErrorMsg: msg,
+      };
+    }
+
+    case types.REGISTER_ERROR: {
+      const { msg }: { msg: string } = action.payload;
+
+      return {
+        ...state,
+        registerErrorMsg: msg,
       };
     }
 

@@ -11,10 +11,11 @@ class Api::V1::UsersController < ApplicationController
     if user
         render json: user, include: ['todos']
     else 
-        render json: {error: 'Error findind account'}
+        render json: {error: 'Unable to find account'}, status: 400
     end
   end
 
+  # create a user
   def create
     @user = User.new(user_params)
     if @user.save
@@ -25,7 +26,7 @@ class Api::V1::UsersController < ApplicationController
             :jwt => token
         }
     else
-        render json: {error: 'Error creating account'}
+        render json: {error: 'Unable to create account'}, status: 400
     end
   end
 

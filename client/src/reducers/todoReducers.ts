@@ -13,9 +13,18 @@ export default function todoReducers(state = initialState, action: IAction) {
     case types.ADD_TODO: {
       const { todo } = action.payload;
 
+      if (
+        state.tag === "All" ||
+        todo.tags.map((tag: any) => tag.name).includes(state.tag)
+      ) {
+        return {
+          ...state,
+          todos: [...state.todos, todo],
+        };
+      }
       return {
         ...state,
-        todos: [...state.todos, todo],
+        todos: [...state.todos],
       };
     }
 
@@ -38,6 +47,15 @@ export default function todoReducers(state = initialState, action: IAction) {
         ...state,
         tag,
         todos,
+      };
+    }
+
+    case types.LOAD_TODO: {
+      const { todo } = action.payload;
+
+      return {
+        ...state,
+        todo,
       };
     }
 

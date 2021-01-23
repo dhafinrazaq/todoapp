@@ -19,6 +19,12 @@ export const getJwtToken = (user: IUser) => (dispatch: Function) => {
       window.location.href = "/";
     })
     .catch((error) => {
+      dispatch({
+        type: types.LOGIN_ERROR,
+        payload: {
+          msg: "Unable to login with the specified user and password",
+        },
+      });
       console.log(error);
     });
 };
@@ -38,7 +44,6 @@ export const auth = () => (dispatch: Function) => {
       console.log(localStorage.token);
     })
     .catch((error) => {
-      // window.location.href = "/login";
       console.log(error);
     });
 };
@@ -58,6 +63,13 @@ export const addUser = (newUser: IUser) => (dispatch: Function) => {
       console.log(localStorage.token);
     })
     .catch((error) => {
+      dispatch({
+        type: types.REGISTER_ERROR,
+        payload: {
+          msg:
+            "Unable to register with the specified user, email, and password",
+        },
+      });
       console.log(error);
     });
 };

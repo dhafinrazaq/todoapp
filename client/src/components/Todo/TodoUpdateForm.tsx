@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { IState } from "../../types/interfaces";
 import * as actions from "../../actions/todos";
 
-export default function TodoForm() {
-  const [name, setName] = useState("");
-  const [tagList, setTagList] = useState("");
+interface Props {
+  id: number;
+}
+
+const TodoUpdateForm: React.FC<Props> = ({ id }) => {
+  const todo = useSelector((state: IState) => state.todo.todo);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.getTodo(id));
+  }, [dispatch]);
+
+  const [name, setName] = useState(todo ? todo.name : "");
+  const [tagList, setTagList] = useState(
+    todo && todo.tags ? todo.tags.map((tag) => tag.name).toString() : ""
+  );
+
+  useEffect(() => {
+    setName(todo ? todo.name : name);
+    setTagList(
+      todo && todo.tags ? todo.tags.map((tag) => tag.name).toString() : tagList
+    );
+  }, [todo, dispatch]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,10 +37,7 @@ export default function TodoForm() {
       tag_list: tagList,
     };
 
-    dispatch(actions.addTodo(newTodo));
-
-    setName("");
-    setTagList("");
+    dispatch(actions.editTodo(id, newTodo));
   };
 
   return (
@@ -36,8 +53,8 @@ export default function TodoForm() {
             type="text"
             name="name"
             id="name"
-            placeholder="Assignment 2"
-            value={name}
+            placeholder="Todo name"
+            defaultValue={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
@@ -50,17 +67,19 @@ export default function TodoForm() {
             type="text"
             name="name"
             id="name"
-            placeholder="homework, CS2040S"
-            value={tagList}
+            placeholder="Tags list"
+            defaultValue={tagList}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setTagList(e.target.value)
             }
           ></Input>
         </FormGroup>
         <Button color="primary" style={{ marginTop: "2rem" }} block>
-          Add todo
+          Update and Go Back To Homepage
         </Button>
       </Form>
     </div>
   );
-}
+};
+
+export default TodoUpdateForm;

@@ -1,12 +1,12 @@
 class Todo < ApplicationRecord
-  # has_many :taggings, dependent: :destroy
-  # has_many :tags, through: :taggings
-
+  before_destroy :clean_up_tags
   belongs_to :user
-  belongs_to :tag
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
 
   def self.tag_user(tag_id, user_id)
-    Todo.where(user_id: user_id, tag_id: tag_id)
+    Tag.find_by!(id: tag_id).todos
   end
 
   def self.tag_counts
@@ -17,7 +17,20 @@ class Todo < ApplicationRecord
     tags.map(&:name).join(', ')
   end
 
-  def set_tag(name, user_id)
-    self.tag = Tag.where(name: name.strip, user_id: user_id).first_or_create!
+  def set_tag(names, user_id)
+    self.tags = names.split(',').map do |n|
+      Tag.where(name: n.strip, user_id: user_id).first_or_create!
+    end
+  end
+
+  protected
+
+  # delete tags if there is no associated
+  def clean_up_tags
+    self.tags.each do |tag|
+      if tag.todos.count == 1
+        tag.destroy
+      end
+    end
   end
 end

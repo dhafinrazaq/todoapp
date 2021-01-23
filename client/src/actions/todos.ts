@@ -77,7 +77,7 @@ export const getTags = () => (dispatch: Function) => {
 
 export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos/tag/${tag.name}`, {
+    .get(`/api/v1/todos/tag/${tag.id}`, {
       headers: { Authorization: localStorage.token },
     })
     .then((res) => {
@@ -112,6 +112,39 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
       console.log("success");
     })
     .catch((error) => {
-      console.log("error");
+      console.log(error);
+    });
+};
+
+export const getTodo = (id: number) => (dispatch: Function) => {
+  axios
+    .get(`/api/v1/todos/${id}`, {
+      headers: { Authorization: localStorage.token },
+    })
+    .then((res) => {
+      dispatch({
+        type: types.LOAD_TODO,
+        payload: {
+          todo: res.data,
+        },
+      });
+      console.log(res.data);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const editTodo = (id: number, newTodo: ITodo) => (
+  dispatch: Function
+) => {
+  axios
+    .put(`/api/v1/todos/${id}`, qs.stringify({ todo: newTodo }), {
+      headers: { Authorization: localStorage.token },
+    })
+    .then((res) => {
+      console.log(res.data);
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };

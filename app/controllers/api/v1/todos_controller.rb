@@ -3,15 +3,17 @@ class Api::V1::TodosController < ApplicationController
   before_action :set_user
 
   # GET /todos
+  # Get all user's todos
   def index
     @todos = @user.todos
     render json: @todos
   end
 
   # GET /todos/tag/:tag
+  # Get user's todos associated with the specified tag
   def index_with_tag
     if params[:tag]
-      @todos = Todo.tag_user(Tag.find_by(name: params[:tag]).id, @user.id)
+      @todos = Tag.find_by!(id: params[:tag]).todos
     else
       @todos = @user.todos
     end
@@ -19,15 +21,20 @@ class Api::V1::TodosController < ApplicationController
   end
 
   # GET /todo/:id
+  # Get todo with specified id
   def show
     @todo = Todo.find(params[:id])
-    render json: @todo
+    
+    if @user.id == @todo.user_id.to_i
+      render :json => @todo, :include => [:tags]
+    else
+      render json: { error: "Unable to get todo" }, status: 400
+    end
   end
 
   # POST /todos
+  # Create new todo
   def create
-    print "params:\n"
-    print todo_params
     @todo = Todo.new
     @todo.user_id = @user.id
     @todo.name = todo_params["name"]
@@ -35,24 +42,35 @@ class Api::V1::TodosController < ApplicationController
     @todo.set_tag(todo_params["tag_list"], @user.id)
 
     if @todo.save
-      render json: @todo
+      render :json => @todo, :include => [:tags]
     else
       render json: { error: 'Unable to create todo'}, status: 400
     end
   end
 
   # PUT /todos/:id
+  # Update a todo
   def update
     @todo = Todo.find(params[:id])
     if @todo
-      @todo.update(todo_params)
-      render json: @todo
+      if todo_params["name"]
+        @todo.name = todo_params["name"]      
+      end
+      if todo_params["isCompleted"]
+        @todo.isCompleted = todo_params["isCompleted"]
+      end
+      if todo_params["tag_list"]
+        @todo.set_tag(todo_params["tag_list"], @user.id)
+      end
+      @todo.save
+      render :json => @todo, :include => [:tags]
     else
       render json: { error: 'Unable to update todo'}, status: 400
     end
   end
 
   # DELETE /todos/:id
+  # Delete a todo
   def destroy
     @todo = Todo.find(params[:id])
     if @todo
@@ -63,6 +81,7 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
+  # Helper to be called before each of the controllers above to get the user sending the request.
   def set_user
     @user = session_user
     if !@user
@@ -73,6 +92,6 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :desc, :isCompleted, :tag_list, :tag, { tag_ids: [] }, :tag_ids)
+    params.require(:todo).permit(:name, :desc, :isCompleted, :tag_list, :tag, { tag_ids: [] }, :tag_ids, :id, :created_at, :updated_at, :user_id)
   end
 end
