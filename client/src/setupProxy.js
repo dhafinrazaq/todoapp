@@ -3,7 +3,7 @@ module.exports = function (app) {
   app.use(
     "/api/v1",
     createProxyMiddleware({
-      target: "http://localhost:5000",
+      target: "https://todoapp-cvwo.herokuapp.com/",
       changeOrigin: true,
     })
   );
