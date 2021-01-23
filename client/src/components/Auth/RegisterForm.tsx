@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../actions/users";
+import { IState } from "../../types/interfaces";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const registerErrorMsg = useSelector((state: IState) => state.auth.registerErrorMsg);
   const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,6 +68,8 @@ export default function RegisterForm() {
           Register
         </Button>
       </Form>
+      <br></br>
+      <p className="text-danger">{registerErrorMsg}</p>
     </div>
   );
 }

@@ -21,6 +21,8 @@ export interface IAuthState {
   username: string;
   isAuth: boolean;
   token: string;
+  loginErrorMsg: string;
+  registerErrorMsg: string;
 }
 
 export interface IState {
