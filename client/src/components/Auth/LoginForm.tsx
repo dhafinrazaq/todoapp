@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as actions from "../../actions/users";
 
 export default function RegisterForm() {
@@ -29,7 +29,9 @@ export default function RegisterForm() {
             name="username"
             id="username"
             placeholder="username"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setUsername(e.target.value)
+            }
           ></Input>
         </FormGroup>
 
@@ -40,7 +42,9 @@ export default function RegisterForm() {
             name="password"
             id="password"
             placeholder="password"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
           ></Input>
         </FormGroup>
         <Button color="primary" style={{ marginTop: "2rem" }} block>

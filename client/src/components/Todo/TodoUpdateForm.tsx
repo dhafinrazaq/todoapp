@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
-import {ITodo, ITag, IState} from "../../types/interfaces"
+import { IState } from "../../types/interfaces";
 import * as actions from "../../actions/todos";
 
 interface Props {
   id: number;
 }
 
-const TodoUpdateForm: React.FC<Props> = ({id}) => {
+const TodoUpdateForm: React.FC<Props> = ({ id }) => {
   const todo = useSelector((state: IState) => state.todo.todo);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("SERVER_EVENT: todo changed");
     dispatch(actions.getTodo(id));
   }, [dispatch]);
 
-
-
   const [name, setName] = useState(todo ? todo.name : "");
-  const [tagList, setTagList] = useState(todo && todo.tags ? todo.tags.map(tag => tag.name).toString() : "");
+  const [tagList, setTagList] = useState(
+    todo && todo.tags ? todo.tags.map((tag) => tag.name).toString() : ""
+  );
 
   useEffect(() => {
     setName(todo ? todo.name : name);
-    setTagList(todo && todo.tags ? todo.tags.map(tag => tag.name).toString() : tagList);
+    setTagList(
+      todo && todo.tags ? todo.tags.map((tag) => tag.name).toString() : tagList
+    );
   }, [todo, dispatch]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,11 +42,12 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
 
   return (
     <div>
-      <Form className="todo-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
+      <Form
+        className="todo-form"
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
+      >
         <FormGroup>
-          <Label>
-            Name
-          </Label>
+          <Label>Name</Label>
           <Input
             required
             type="text"
@@ -53,13 +55,13 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
             id="name"
             placeholder="Todo name"
             defaultValue={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           ></Input>
         </FormGroup>
         <FormGroup>
-          <Label>
-            Tags
-          </Label>
+          <Label>Tags</Label>
           <Input
             required
             type="text"
@@ -67,7 +69,9 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
             id="name"
             placeholder="Tags list"
             defaultValue={tagList}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTagList(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTagList(e.target.value)
+            }
           ></Input>
         </FormGroup>
         <Button color="primary" style={{ marginTop: "2rem" }} block>
@@ -76,7 +80,6 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
       </Form>
     </div>
   );
-}
-
+};
 
 export default TodoUpdateForm;
