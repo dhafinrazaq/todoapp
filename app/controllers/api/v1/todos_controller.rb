@@ -21,7 +21,12 @@ class Api::V1::TodosController < ApplicationController
   # GET /todo/:id
   def show
     @todo = Todo.find(params[:id])
-    render json: @todo
+    
+    if @user.id == @todo.user_id.to_i
+      render :json => @todo, :include => [:tags]
+    else
+      render json: { error: "Not authorized" }, status: 401
+    end
   end
 
   # POST /todos
@@ -43,8 +48,16 @@ class Api::V1::TodosController < ApplicationController
   def update
     @todo = Todo.find(params[:id])
     if @todo
-      @todo.update(todo_params)
-      render :json => @todo, :include => [:tag]
+      if todo_params["name"]
+        @todo.name = todo_params["name"]      
+      end
+      if todo_params["isCompleted"]
+        @todo.isCompleted = todo_params["isCompleted"]
+      end
+      if todo_params["tag_list"]
+        @todo.set_tag(todo_params["tag_list"], @user.id)
+      end
+      render :json => @todo, :include => [:tags]
     else
       render json: { error: 'Unable to update todo'}, status: 400
     end
@@ -71,6 +84,6 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :desc, :isCompleted, :tag_list, :tag, { tag_ids: [] }, :tag_ids)
+    params.require(:todo).permit(:name, :desc, :isCompleted, :tag_list, :tag, { tag_ids: [] }, :tag_ids, :id, :created_at, :updated_at, :user_id)
   end
 end

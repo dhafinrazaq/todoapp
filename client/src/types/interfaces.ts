@@ -2,6 +2,7 @@ export interface ITodo {
   id?: number;
   name: string;
   isCompleted: boolean;
+  tags?: ITag[];
 }
 
 export interface ITag {

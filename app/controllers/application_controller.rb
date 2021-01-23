@@ -16,11 +16,7 @@ class ApplicationController < ActionController::Base
   end
   
  def decoded_token
-      print "decode\n"
-      print auth_header_token
       if auth_header_token
-        print "below\n"
-        print auth_header_token
          begin
            JWT.decode(auth_header_token, 'secret',true, algorithm: 'HS256')
          rescue JWT::DecodeError

@@ -1,10 +1,12 @@
 class Todo < ApplicationRecord
-  # has_many :taggings, dependent: :destroy
+  # has_many :taggings, 
   # has_many :tags, through: :taggings
 
+  before_destroy :clean_up_tags
   belongs_to :user
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+
 
   def self.tag_user(tag_id, user_id)
     Tag.find_by!(id: tag_id).todos
@@ -20,18 +22,26 @@ class Todo < ApplicationRecord
   end
 
   def set_tag(names, user_id)
-    # self.tags = Tag.where(name: name.strip, user_id: user_id).first_or_create!
-    print(names)
     self.tags = names.split(',').map do |n|
       Tag.where(name: n.strip, user_id: user_id).first_or_create!
     end
-    print "belowq\n"
-    print self.tags
   end
-  # def tag_list=(names)
-  #   print(names)
-  #   self.tags = names.split(',').map do |n|
-  #     Tag.where(name: n.strip).first_or_create!
-  #   end
-  # end
+
+  protected
+
+  def clean_up_tags
+    print "cleaning up tags\n"
+    print "above\n"
+    print tag_list
+    print "aboveeee\n"
+    self.tags.each do |tag|
+      print "inside map\n"
+      print tag.todos.count
+      print "\n"
+      if tag.todos.count == 1
+        print "destroying\n"
+        tag.destroy
+      end
+    end
+  end
 end

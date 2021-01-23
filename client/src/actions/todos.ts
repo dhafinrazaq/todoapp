@@ -128,6 +128,7 @@ export const getTodo = (id: number) => (dispatch: Function) => {
           todo: res.data,
         },
       });
+      console.log(res.data);
     })
     .catch((err) => console.log(err));
 };

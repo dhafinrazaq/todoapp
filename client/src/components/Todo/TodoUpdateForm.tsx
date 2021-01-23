@@ -20,10 +20,11 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
 
 
   const [name, setName] = useState(todo ? todo.name : "");
-  // const [tagList, setTagList] = useState(todo ? todo.tag.name : "");
+  const [tagList, setTagList] = useState(todo && todo.tags ? todo.tags.map(tag => tag.name).toString() : "");
 
   useEffect(() => {
     setName(todo ? todo.name : name);
+    setTagList(todo && todo.tags ? todo.tags.map(tag => tag.name).toString() : tagList);
   }, [todo, dispatch]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,7 +33,7 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
     const newTodo = {
       name: name,
       isCompleted: false,
-      // tag_list: tagList,
+      tag_list: tagList,
     };
 
     dispatch(actions.editTodo(id, newTodo));
@@ -52,16 +53,17 @@ const TodoUpdateForm: React.FC<Props> = ({id}) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           ></Input>
         </FormGroup>
-        {/* <FormGroup>
+        <FormGroup>
           <Input
             required
             type="text"
             name="name"
             id="name"
             placeholder="Tags list"
+            defaultValue={tagList}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTagList(e.target.value)}
           ></Input>
-        </FormGroup> */}
+        </FormGroup>
         <Button color="primary" style={{ marginTop: "2rem" }} block>
           Update and Go Back To Homepage
         </Button>
