@@ -26,8 +26,6 @@ class Api::V1::TodosController < ApplicationController
 
   # POST /todos
   def create
-    print "params:\n"
-    print todo_params
     @todo = Todo.new
     @todo.user_id = @user.id
     @todo.name = todo_params["name"]
@@ -46,7 +44,7 @@ class Api::V1::TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     if @todo
       @todo.update(todo_params)
-      render json: @todo
+      render :json => @todo, :include => [:tag]
     else
       render json: { error: 'Unable to update todo'}, status: 400
     end

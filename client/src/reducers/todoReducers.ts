@@ -47,6 +47,15 @@ export default function todoReducers(state = initialState, action: IAction) {
       };
     }
 
+    case types.LOAD_TODO: {
+      const { todo } = action.payload;
+
+      return {
+        ...state,
+        todo,
+      };
+    }
+
     case types.LOAD_TAGS: {
       const { tags } = action.payload;
 

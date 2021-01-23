@@ -11,6 +11,7 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle
   } from 'reactstrap';
+  import { Link } from "react-router-dom";
 
 const updateTodo = (todo: ITodo) => {
   const updatedTodo = {
@@ -52,10 +53,10 @@ export const Todo: React.FC<Props> = ({todo}) => {
                     onClick={(e) => handleDelete(e, todo)}
                 ><Trash></Trash>
                 </Button>
-                <span className={todo.isCompleted ? "completed-todo" : ""}>
+                <Link to={{ pathname: `/todos/${todo.id}` }} className={todo.isCompleted ? "completed-todo" : ""}>
                     {" "}
                     {todo.name}
-                </span>
+                </Link>
     </div>
         
   );

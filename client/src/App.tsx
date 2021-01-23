@@ -9,6 +9,7 @@ import LoginForm from "./components/Auth/LoginForm";
 import AppNavbar from "./components/Home/AppNavbar";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "./actions/users";
+import TodoUpdateForm from "./components/Todo/TodoUpdateForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,14 @@ function App() {
           path="/"
           render={(props) => isAuth() ? (
               <TodoList></TodoList>
+              ) : <Redirect to={{ pathname: '/login', state: { from: props.location } }} /> 
+          }
+        /> 
+        <Route
+          exact
+          path="/todos/:id"
+          render={(props) => isAuth() ? (
+              <TodoUpdateForm id={props.match.params.id}></TodoUpdateForm>
               ) : <Redirect to={{ pathname: '/login', state: { from: props.location } }} /> 
           }
         /> 

@@ -115,3 +115,35 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
       console.log(error);
     });
 };
+
+export const getTodo = (id: number) => (dispatch: Function) => {
+  axios
+    .get(`/api/v1/todos/${id}`, {
+      headers: { Authorization: localStorage.token },
+    })
+    .then((res) => {
+      dispatch({
+        type: types.LOAD_TODO,
+        payload: {
+          todo: res.data,
+        },
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const editTodo = (id: number, newTodo: ITodo) => (
+  dispatch: Function
+) => {
+  axios
+    .put(`/api/v1/todos/${id}`, qs.stringify({ todo: newTodo }), {
+      headers: { Authorization: localStorage.token },
+    })
+    .then((res) => {
+      console.log(res.data);
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
