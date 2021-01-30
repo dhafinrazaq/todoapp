@@ -81,17 +81,17 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
-  # Helper to be called before each of the controllers above to get the user sending the request.
+  # Helper to be called before each of the controllers above to get the user sending the request and check if user is authorized.
   def set_user
     @user = session_user
     if !@user
-      render json: { error: 'You are not logged in'}, status: 400
+      render json: { error: 'You are not logged in'}, status: 401
     end
   end
 
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :desc, :isCompleted, :tag_list, :tag, { tag_ids: [] }, :tag_ids, :id, :created_at, :updated_at, :user_id)
+    params.require(:todo).permit(:name, :desc, :isCompleted, :tag_list, :tag, { tag_ids: [] }, :tag_ids)
   end
 end
