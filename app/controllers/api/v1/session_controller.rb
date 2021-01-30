@@ -6,7 +6,7 @@ class Api::V1::SessionController < ApplicationController
     if user && user.authenticate(user_params[:password])
         payload = {user_id: user.id}
         token = encode_token(payload)
-        cookies['Authorization'] = token
+        cookies['Authorization'] = { :value => token, :http_only => true }
         render json: {
             user: user,               
             jwt: "auth"
