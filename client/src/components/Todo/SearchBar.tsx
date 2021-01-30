@@ -3,7 +3,7 @@ import Autosuggest from "react-autosuggest";
 import React, { useState } from "react";
 import { Button, Form } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { ITodo, ITag, IState } from "../../types/interfaces";
+import { ITag, IState } from "../../types/interfaces";
 import * as actions from "../../actions/todos";
 import { Search } from "../Icons/Icons";
 import { searchBarTheme } from "./style";
@@ -48,10 +48,10 @@ export default function SearchBar() {
     setValue(newValue);
 
     if (
-      method == "click" ||
-      method == "down" ||
-      method == "up" ||
-      method == "enter"
+      method === "click" ||
+      method === "down" ||
+      method === "up" ||
+      method === "enter"
     ) {
       setTag(tags.find((tag) => tag.name === newValue));
     }

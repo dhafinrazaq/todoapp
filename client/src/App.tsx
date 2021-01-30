@@ -10,21 +10,10 @@ import AppNavbar from "./components/Home/AppNavbar";
 import { useDispatch } from "react-redux";
 import * as actions from "./actions/users";
 import TodoUpdateForm from "./components/Todo/TodoUpdateForm";
+import {isAuth} from "./utils/authUtils"
 
 function App() {
   const dispatch = useDispatch();
-  function isAuth(): boolean {
-    const loggedIn =
-      typeof localStorage.token != "undefined" &&
-      localStorage.token !== null &&
-      localStorage.token !== "" &&
-      localStorage.token !== "undefined";
-    if (loggedIn) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   useEffect(() => {
     console.log("SERVER_EVENT: auth-ing");
@@ -58,7 +47,7 @@ function App() {
           exact
           path="/"
           render={(props) =>
-            isAuth() ? (
+            isAuth(localStorage) ? (
               <TodoList></TodoList>
             ) : (
               <Redirect
@@ -71,7 +60,7 @@ function App() {
           exact
           path="/todos/:id"
           render={(props) =>
-            isAuth() ? (
+            isAuth(localStorage) ? (
               <TodoUpdateForm id={props.match.params.id}></TodoUpdateForm>
             ) : (
               <Redirect

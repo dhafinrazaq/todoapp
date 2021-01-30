@@ -3,8 +3,6 @@ import * as types from "../actions/types";
 
 const initialState: IAuthState = {
   username: "",
-  isAuth: false,
-  token: "",
   loginErrorMsg: "",
   logoutErrorMsg: "",
   registerErrorMsg: "",

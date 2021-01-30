@@ -12,6 +12,7 @@ import "./style.css";
 import * as actions from "../../actions/users";
 import { useDispatch } from "react-redux";
 import SearchBar from "../Todo/SearchBar";
+import {isAuth} from "../../utils/authUtils"
 
 export default function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +20,7 @@ export default function AppNavbar() {
 
   const NavItems = (
     <React.Fragment>
-      {typeof localStorage.token != "undefined" &&
-      localStorage.token !== null &&
-      localStorage.token !== "" &&
-      localStorage.token != "undefined" ? (
+      {isAuth(localStorage) ? (
         <React.Fragment>
           <Nav className="m-auto" navbar>
             <NavItem>

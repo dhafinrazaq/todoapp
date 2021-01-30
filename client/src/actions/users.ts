@@ -31,7 +31,7 @@ export const getJwtToken = (user: IUser) => (dispatch: Function) => {
 
 export const auth = () => (dispatch: Function) => {
   axios
-    .get(`/api/v1/auth`, { headers: { Authorization: localStorage.token } })
+    .get(`/api/v1/auth`)
     .then((res) => {
       dispatch({
         type: types.LOGIN_SUCCESS,
