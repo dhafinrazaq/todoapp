@@ -23,6 +23,7 @@ export interface IAuthState {
   token: string;
   loginErrorMsg: string;
   registerErrorMsg: string;
+  logoutErrorMsg: string;
 }
 
 export interface IState {

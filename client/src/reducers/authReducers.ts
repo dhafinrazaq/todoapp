@@ -6,6 +6,7 @@ const initialState: IAuthState = {
   isAuth: false,
   token: "",
   loginErrorMsg: "",
+  logoutErrorMsg: "",
   registerErrorMsg: "",
 };
 
@@ -31,6 +32,16 @@ export default function authReducers(state = initialState, action: IAction) {
       };
     }
 
+    case types.LOGOUT_SUCCESS: {
+      const { jwt }: { jwt: string } = action.payload;
+
+      return {
+        ...state,
+        isAuth: false,
+        token: jwt,
+      };
+    }
+
     case types.LOGIN_ERROR: {
       const { msg }: { msg: string } = action.payload;
 
@@ -46,6 +57,15 @@ export default function authReducers(state = initialState, action: IAction) {
       return {
         ...state,
         registerErrorMsg: msg,
+      };
+    }
+
+    case types.LOGOUT_ERROR: {
+      const { msg }: { msg: string } = action.payload;
+
+      return {
+        ...state,
+        logoutErrorMsg: msg,
       };
     }
 

@@ -75,5 +75,22 @@ export const addUser = (newUser: IUser) => (dispatch: Function) => {
 };
 
 export const logout = () => (dispatch: Function) => {
-  localStorage.setItem("token", "");
+  axios
+    .post(`/api/v1/logout`)
+    .then((res) => {
+      dispatch({
+        type: types.LOGOUT_SUCCESS,
+        payload: {},
+      });
+      localStorage.setItem("token", "");
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      dispatch({
+        type: types.LOGOUT_ERROR,
+        payload: {
+          msg: "Unable to logout",
+        },
+      });
+    });
 };

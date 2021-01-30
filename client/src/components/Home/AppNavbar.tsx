@@ -30,7 +30,7 @@ export default function AppNavbar() {
             </NavItem>
           </Nav>
           <Nav className="ml-auto" navbar>
-            <NavLink href="/" onClick={(e) => dispatch(actions.logout())}>
+            <NavLink onClick={(e) => dispatch(actions.logout())}>
               Logout
             </NavLink>
           </Nav>

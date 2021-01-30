@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
 
       post '/login', to: "session#login"
+      post '/logout', to: "session#logout"
       post '/signup', to: "users#create"
       get '/auth', to: "session#auth"
       
