@@ -17,11 +17,6 @@
   padding-bottom: 2em;
 }
 
-.tags-bar {
-  overflow: scroll;
-  height: 50em;
-}
-
 .search-button {
   margin-left: 2em;
 }

@@ -8,22 +8,12 @@ import TagsBar from "./TagsBar";
 import * as actions from "../../actions/todos";
 import { ITodo, IState } from "../../types/interfaces";
 
-const updateTodo = (todo: ITodo) => {
-  const updatedTodo = {
-    ...todo,
-    isCompleted: !todo.isCompleted,
-  };
-
-  return updatedTodo;
-};
-
 export default function TodoList() {
   const dispatch = useDispatch();
   const todos: ITodo[] = useSelector((state: IState) => state.todo.todos);
   const tagName: string = useSelector((state: IState) => state.todo.tag);
 
   useEffect(() => {
-    console.log("SERVER_EVENT: todo list changed");
     dispatch(actions.getTodos());
   }, [dispatch]);
 
@@ -37,7 +27,7 @@ export default function TodoList() {
           <TodoForm></TodoForm>
           <h3 className="text-center">{tagName}</h3>
           {todos.map((todo: ITodo) => (
-            <Todo todo={todo}></Todo>
+            <Todo todo={todo} key={todo.id}></Todo>
           ))}
         </Col>
       </Row>

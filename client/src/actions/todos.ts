@@ -28,7 +28,6 @@ export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
           todo: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
       console.log("error");
@@ -45,7 +44,6 @@ export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
           todo: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
       console.log("error");
@@ -62,10 +60,9 @@ export const getTags = () => (dispatch: Function) => {
           tags: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
-      console.log("error");
+      console.log(error);
     });
 };
 
@@ -80,11 +77,9 @@ export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
           tag: tag.name,
         },
       });
-      console.log("success");
-      console.log(res.data);
     })
     .catch((error) => {
-      console.log("error");
+      console.log(error);
     });
 };
 
@@ -99,7 +94,6 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
           todo: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
       console.log(error);
