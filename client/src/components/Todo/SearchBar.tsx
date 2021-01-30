@@ -67,10 +67,8 @@ export default function SearchBar() {
     e.preventDefault();
 
     if (typeof tag === "undefined") {
-      console.log("all todos load");
       dispatch(actions.getTodos());
     } else {
-      console.log("todos with tag");
       // @ts-ignore
       dispatch(actions.getTodoWithTag(tag));
     }

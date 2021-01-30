@@ -11,7 +11,6 @@ export default function TagsBar() {
 
   useEffect(() => {
     dispatch(actions.getTags());
-    console.log("SERVER_EVENT: tag list changed");
   }, [dispatch, todos]);
 
   return (

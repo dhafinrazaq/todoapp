@@ -87,7 +87,6 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
   axios
     .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }))
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: types.ADD_TODO,
         payload: {
@@ -121,7 +120,6 @@ export const editTodo = (id: number, newTodo: ITodo) => (
   axios
     .put(`/api/v1/todos/${id}`, qs.stringify({ todo: newTodo }))
     .then((res) => {
-      console.log(res.data);
       window.location.href = "/";
     })
     .catch((error) => {
