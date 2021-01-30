@@ -5,13 +5,11 @@ Rails.application.routes.draw do
       # todos
       resources :todos do
       end
+      
       get 'todos/tag/:tag', to: 'todos#index_with_tag', as: :tag
 
       # tags
       resources :tags do
-      end
-
-      resources :users do
       end
 
       post '/login', to: "session#login"
