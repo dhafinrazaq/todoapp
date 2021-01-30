@@ -5,7 +5,7 @@ import { ITodo, ITag } from "../types/interfaces";
 
 export const getTodos = () => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos`, { headers: { Authorization: localStorage.token } })
+    .get(`/api/v1/todos`)
     .then((res) => {
       dispatch({
         type: types.LOAD_TODOS,
@@ -20,11 +20,7 @@ export const getTodos = () => (dispatch: Function) => {
 
 export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
   axios
-    .put(
-      `/api/v1/todos/${updatedTodo.id}`,
-      qs.stringify({ todo: updatedTodo }),
-      { headers: { Authorization: localStorage.token } }
-    )
+    .put(`/api/v1/todos/${updatedTodo.id}`, qs.stringify({ todo: updatedTodo }))
     .then((res) => {
       dispatch({
         type: types.UPDATE_TODO,
@@ -32,7 +28,6 @@ export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
           todo: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
       console.log("error");
@@ -41,9 +36,7 @@ export const markTodo = (updatedTodo: ITodo) => (dispatch: Function) => {
 
 export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
   axios
-    .delete(`/api/v1/todos/${todo.id}`, {
-      headers: { Authorization: localStorage.token },
-    })
+    .delete(`/api/v1/todos/${todo.id}`)
     .then((res) => {
       dispatch({
         type: types.DELETE_TODO,
@@ -51,7 +44,6 @@ export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
           todo: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
       console.log("error");
@@ -60,7 +52,7 @@ export const deleteTodo = (todo: ITodo) => (dispatch: Function) => {
 
 export const getTags = () => (dispatch: Function) => {
   axios
-    .get(`/api/v1/tags`, { headers: { Authorization: localStorage.token } })
+    .get(`/api/v1/tags`)
     .then((res) => {
       dispatch({
         type: types.LOAD_TAGS,
@@ -68,18 +60,15 @@ export const getTags = () => (dispatch: Function) => {
           tags: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
-      console.log("error");
+      console.log(error);
     });
 };
 
 export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos/tag/${tag.id}`, {
-      headers: { Authorization: localStorage.token },
-    })
+    .get(`/api/v1/todos/tag/${tag.id}`)
     .then((res) => {
       dispatch({
         type: types.LOAD_TODOS,
@@ -88,19 +77,15 @@ export const getTodoWithTag = (tag: ITag) => (dispatch: Function) => {
           tag: tag.name,
         },
       });
-      console.log("success");
-      console.log(res.data);
     })
     .catch((error) => {
-      console.log("error");
+      console.log(error);
     });
 };
 
 export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
   axios
-    .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }), {
-      headers: { Authorization: localStorage.token },
-    })
+    .post(`/api/v1/todos`, qs.stringify({ todo: newTodo }))
     .then((res) => {
       console.log(res.data);
       dispatch({
@@ -109,7 +94,6 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
           todo: res.data,
         },
       });
-      console.log("success");
     })
     .catch((error) => {
       console.log(error);
@@ -118,9 +102,7 @@ export const addTodo = (newTodo: ITodo) => (dispatch: Function) => {
 
 export const getTodo = (id: number) => (dispatch: Function) => {
   axios
-    .get(`/api/v1/todos/${id}`, {
-      headers: { Authorization: localStorage.token },
-    })
+    .get(`/api/v1/todos/${id}`)
     .then((res) => {
       dispatch({
         type: types.LOAD_TODO,
@@ -137,9 +119,7 @@ export const editTodo = (id: number, newTodo: ITodo) => (
   dispatch: Function
 ) => {
   axios
-    .put(`/api/v1/todos/${id}`, qs.stringify({ todo: newTodo }), {
-      headers: { Authorization: localStorage.token },
-    })
+    .put(`/api/v1/todos/${id}`, qs.stringify({ todo: newTodo }))
     .then((res) => {
       console.log(res.data);
       window.location.href = "/";

@@ -12,6 +12,7 @@ import "./style.css";
 import * as actions from "../../actions/users";
 import { useDispatch } from "react-redux";
 import SearchBar from "../Todo/SearchBar";
+import {isAuth} from "../../utils/authUtils"
 
 export default function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +20,7 @@ export default function AppNavbar() {
 
   const NavItems = (
     <React.Fragment>
-      {typeof localStorage.token != "undefined" &&
-      localStorage.token !== null &&
-      localStorage.token !== "" &&
-      localStorage.token != "undefined" ? (
+      {isAuth(localStorage) ? (
         <React.Fragment>
           <Nav className="m-auto" navbar>
             <NavItem>
@@ -30,7 +28,7 @@ export default function AppNavbar() {
             </NavItem>
           </Nav>
           <Nav className="ml-auto" navbar>
-            <NavLink href="/" onClick={(e) => dispatch(actions.logout())}>
+            <NavLink onClick={(e) => dispatch(actions.logout())}>
               Logout
             </NavLink>
           </Nav>
@@ -39,10 +37,10 @@ export default function AppNavbar() {
         <Nav className="ml-auto" navbar>
           <React.Fragment>
             <NavItem>
-              <NavLink href="/login/">Login</NavLink>
+              <NavLink href="/login">Login</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/register/">Register</NavLink>
+              <NavLink href="/register">Register</NavLink>
             </NavItem>
           </React.Fragment>
         </Nav>

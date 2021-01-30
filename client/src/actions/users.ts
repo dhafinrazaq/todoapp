@@ -31,7 +31,7 @@ export const getJwtToken = (user: IUser) => (dispatch: Function) => {
 
 export const auth = () => (dispatch: Function) => {
   axios
-    .get(`/api/v1/auth`, { headers: { Authorization: localStorage.token } })
+    .get(`/api/v1/auth`)
     .then((res) => {
       dispatch({
         type: types.LOGIN_SUCCESS,
@@ -40,11 +40,16 @@ export const auth = () => (dispatch: Function) => {
         },
       });
       localStorage.setItem("token", res.data.jwt);
-      console.log(res.data);
-      console.log(localStorage.token);
     })
     .catch((error) => {
       console.log(error);
+      console.log(window.location.pathname);
+      if (
+        window.location.pathname !== "/login" &&
+        window.location.pathname !== "/register"
+      ) {
+        window.location.href = "/login";
+      }
     });
 };
 
@@ -75,5 +80,22 @@ export const addUser = (newUser: IUser) => (dispatch: Function) => {
 };
 
 export const logout = () => (dispatch: Function) => {
-  localStorage.setItem("token", "");
+  axios
+    .post(`/api/v1/logout`)
+    .then((res) => {
+      dispatch({
+        type: types.LOGOUT_SUCCESS,
+        payload: {},
+      });
+      localStorage.setItem("token", "");
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      dispatch({
+        type: types.LOGOUT_ERROR,
+        payload: {
+          msg: "Unable to logout",
+        },
+      });
+    });
 };

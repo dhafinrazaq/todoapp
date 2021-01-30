@@ -15,7 +15,7 @@ export default function TagsBar() {
   }, [dispatch, todos]);
 
   return (
-    <div className="tags-bar">
+    <div>
       <ul>
         Tags
         <li>
@@ -29,7 +29,7 @@ export default function TagsBar() {
           </Button>
         </li>
         {tags.map((tag) => (
-          <li>
+          <li key={tag.id}>
             <Button
               color="link"
               onClick={() => {
