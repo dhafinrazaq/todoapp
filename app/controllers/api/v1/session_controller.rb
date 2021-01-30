@@ -17,7 +17,6 @@ class Api::V1::SessionController < ApplicationController
   end
 
   def logout
-    print "will delete"
     cookies.delete 'Authorization'
   end
                             
@@ -28,7 +27,7 @@ class Api::V1::SessionController < ApplicationController
           jwt: "auth"
       }
     else
-        render json: {error: "No User Logged In."}, status: 400
+        render json: {error: "No User Logged In."}, status: 401
     end     
   end
 

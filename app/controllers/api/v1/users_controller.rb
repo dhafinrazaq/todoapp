@@ -21,9 +21,10 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       payload = {user_id: @user.id}
         token = encode_token(payload)
+        cookies['Authorization'] = token
         render json: {
             :username => @user.username,
-            :jwt => token
+            :jwt => "auth"
         }
     else
         render json: {error: 'Unable to create account'}, status: 400

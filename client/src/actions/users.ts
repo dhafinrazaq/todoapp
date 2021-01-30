@@ -40,11 +40,16 @@ export const auth = () => (dispatch: Function) => {
         },
       });
       localStorage.setItem("token", res.data.jwt);
-      console.log(res.data);
-      console.log(localStorage.token);
     })
     .catch((error) => {
       console.log(error);
+      console.log(window.location.pathname);
+      if (
+        window.location.pathname !== "/login" &&
+        window.location.pathname !== "/register"
+      ) {
+        window.location.href = "/login";
+      }
     });
 };
 

@@ -37,10 +37,10 @@ export default function AppNavbar() {
         <Nav className="ml-auto" navbar>
           <React.Fragment>
             <NavItem>
-              <NavLink href="/login/">Login</NavLink>
+              <NavLink href="/login">Login</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/register/">Register</NavLink>
+              <NavLink href="/register">Register</NavLink>
             </NavItem>
           </React.Fragment>
         </Nav>
