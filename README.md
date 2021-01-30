@@ -4,6 +4,11 @@ Matric. no: A0206418J
 
 Website on: [https://todoapp-cvwo.netlify.app/](https://todoapp-cvwo.netlify.app/)
 
+![Home page](/submissions/final-submission/images/home.png)
+![Search](/submissions/final-submission/images/search.png)
+![Edit Todo](/submissions/final-submission/images/update.png)
+![Login](/submissions/final-submission/images/login.png)
+
 # Todo app
 How to run locally
 1. Clone this repo by running `git clone https://github.com/dhafinrazaq/todoapp.git`
