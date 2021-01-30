@@ -1,3 +1,6 @@
+require 'utils'
+include ConstantsModule
+
 class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -21,10 +24,10 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       payload = {user_id: @user.id}
         token = encode_token(payload)
-        cookies['Authorization'] = token
+        cookies[CONSTANTS['authorization-cookie']] = token
         render json: {
             :username => @user.username,
-            :jwt => "auth"
+            :jwt => CONSTANTS['jwt-authenticated-status']
         }
     else
         render json: {error: 'Unable to create account'}, status: 400
