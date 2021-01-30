@@ -22,7 +22,6 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("SERVER_EVENT: auth-ing");
     dispatch(actions.auth());
   }, [dispatch]);
 

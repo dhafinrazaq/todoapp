@@ -14,8 +14,6 @@ export const getJwtToken = (user: IUser) => (dispatch: Function) => {
         },
       });
       localStorage.setItem("token", res.data.jwt);
-      console.log(res.data);
-      console.log(localStorage.token);
       window.location.href = "/";
     })
     .catch((error) => {
@@ -43,7 +41,6 @@ export const auth = () => (dispatch: Function) => {
     })
     .catch((error) => {
       console.log(error);
-      console.log(window.location.pathname);
       if (
         window.location.pathname !== "/login" &&
         window.location.pathname !== "/register"
@@ -65,7 +62,6 @@ export const addUser = (newUser: IUser) => (dispatch: Function) => {
       });
       localStorage.setItem("token", res.data.jwt);
       window.location.href = "/";
-      console.log(localStorage.token);
     })
     .catch((error) => {
       dispatch({
